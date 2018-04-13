@@ -1,0 +1,5 @@
+<div class="ui segments" >
+  <p>test</p>
+  <app-question *ngFor='let localQuestion of questions | async'
+    [question]='localQuestion'></app-question>
+</div>

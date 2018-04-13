@@ -1,5 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Question } from './question.model';
+import { QuestionService } from '../question.service';
+import { User } from '../user/user.model';
+
 
 @Component({
   selector: 'app-question',
@@ -8,8 +11,7 @@ import { Question } from './question.model';
 })
 export class QuestionComponent implements OnInit {
   @Input() public question : Question;
-
-  constructor() { }
+  constructor(private _questionDataService: QuestionService) { }
 
   ngOnInit() {
   }
@@ -23,7 +25,10 @@ export class QuestionComponent implements OnInit {
   }
 
   test() : boolean{
-    console.log("test3");
+    console.log(this.question.body + " " + this.question.id);
+    this._questionDataService.deleteQuestion(this.question).subscribe();
+    this._questionDataService.addNewQuestion(new Question(new User("Iemand"), "testttt", "testtt", new Date())).subscribe();
+    //this.question = null;
     return false;
   }
 }

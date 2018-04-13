@@ -12,7 +12,9 @@ export class Question {
         this._title = title;
         this._datePosted=date;
     }
-
+    get id() : String {
+        return this._id;
+    }
     get poster() : User {
         return this._poster;
     }
@@ -32,7 +34,9 @@ export class Question {
           json.title,
           json.date
         );
+        console.log("id" + json._id);
         question._id = json._id;
+        console.log("id2: " + question._id);
         return question;
       }
     

@@ -7,8 +7,8 @@ import { map } from 'rxjs/operators';
 @Injectable()
 export class QuestionService {
 
-  private readonly _appUrl = '/API/questions/';
-  private _questions = new Array<Question>();
+  private readonly _appUrl = '/API';
+ 
 
     /**
      *
@@ -17,16 +17,26 @@ export class QuestionService {
     }
     
     get questions() : Observable<Question[]>{
-      return this.http.get(this._appUrl)
+    /*  return this.http.get(this._appUrl)
           .pipe(map((list: any[]):Question[] => list.map(item =>
             new Question(new User("Iemand"), item.body, item.title, item.date)
-          )));
+          )));*/
+          return this.http
+          .get(`${this._appUrl}/questions/`)
+          .pipe(map((list: any[]): Question[] => list.map(Question.fromJSON)));
     }
 
     addNewQuestion(question) : Observable<Question> {
       return this.http
-        .post(this._appUrl, question)
+        .post(`${this._appUrl}/questions/`, question)
           .pipe(map(Question.fromJSON));
+    }
+    deleteQuestion(question) {
+      console.log("deleting");
+      console.log(`${this._appUrl}/question/${question.id}`);
+      return this.http
+        .delete(`${this._appUrl}/question/${question.id}`)
+        .pipe(map(Question.fromJSON));
     }
  /* constructor() { 
     let user = new User("iemand");
