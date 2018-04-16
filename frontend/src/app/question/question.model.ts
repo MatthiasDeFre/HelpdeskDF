@@ -1,4 +1,5 @@
 import { User } from "../user/user.model";
+import { Router } from "@angular/router";
 
 export class Question {
     private _id : String;
@@ -11,6 +12,7 @@ export class Question {
         this._body = body;
         this._title = title;
         this._datePosted=date;
+        console.log(body);
     }
     get id() : String {
         return this._id;

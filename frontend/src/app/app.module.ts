@@ -13,7 +13,8 @@ import { AddQuestionComponent } from './add-question/add-question.component';
 const appRoutes: Routes = [
   { path: 'questions', component: QuestionListComponent },
   { path: 'addquestion', component: AddQuestionComponent },
-  { path: 'question:id', component: QuestionDetailComponent }
+  { path: 'question/:id', component: QuestionDetailComponent },
+  { path: '', redirectTo: '/', pathMatch: 'full'}
 ];
 @NgModule({
   declarations: [

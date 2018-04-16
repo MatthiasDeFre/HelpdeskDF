@@ -17,7 +17,7 @@ export class QuestionService {
     }
     
     get questions() : Observable<Question[]>{
-    /*  return this.http.get(this._appUrl)
+    /* return this.http.get(this._appUrl+"/questions")
           .pipe(map((list: any[]):Question[] => list.map(item =>
             new Question(new User("Iemand"), item.body, item.title, item.date)
           )));*/

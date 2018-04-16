@@ -23,14 +23,21 @@ export class QuestionListComponent implements OnInit {
    //this._questionDataService.questions..pipe(takeUntil(this.unsubscribe(items => this._questions = items);
    console.log("tst");
    this._questionDataService.questions.subscribe(
-     data => {this._questions = data},
+     data => {
+       console.log(data);
+       this._questions = data;
+       console.log(this._questions);
+      },
      (error: HttpErrorResponse) => {
        this.errorMsg = `Error ${
          error.status
        } while trying to retrieve questions: ${error.error}`;
      }
    );
+   console.log(this._questions + "test");
  }
-
+get questions() {
+  return this._questions;
+}
 
 }

@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Question } from './question.model';
 import { QuestionService } from '../question.service';
 import { User } from '../user/user.model';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { User } from '../user/user.model';
 })
 export class QuestionComponent implements OnInit {
   @Input() public question : Question;
-  constructor(private _questionDataService: QuestionService) { }
+  constructor(private _questionDataService: QuestionService, private _router : Router) { }
 
   ngOnInit() {
   }
@@ -24,11 +25,7 @@ export class QuestionComponent implements OnInit {
     return this.question.body;
   }
 
-  test() : boolean{
-    console.log(this.question.body + " " + this.question.id);
-    this._questionDataService.deleteQuestion(this.question).subscribe();
-    this._questionDataService.addNewQuestion(new Question(new User("Iemand"), "testttt", "testtt", new Date())).subscribe();
-    //this.question = null;
-    return false;
+  test(){
+    this._router.navigate(["/question", this.question.id]);
   }
 }
