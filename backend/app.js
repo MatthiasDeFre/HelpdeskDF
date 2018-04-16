@@ -11,7 +11,7 @@ var mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost/helpdeskdb');
 require("./models/Question");
-
+require("./models/Answer");
 var index = require('./routes/index');
 var users = require('./routes/users');
 var questions = require("./routes/questionlist");

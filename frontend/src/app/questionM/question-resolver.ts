@@ -10,6 +10,7 @@ import { Question } from "./question/question.model";
 export class QuestionResolver implements Resolve<Question> {
     constructor(private _questionService:QuestionService){}
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):  Observable<Question> {
-        return this._questionService.getQuestion(route.params['id'])
+        console.log("resolve");
+        return this._questionService.getQuestion(route.params['id']);
     }
 }

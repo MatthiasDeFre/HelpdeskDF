@@ -1,3 +1,14 @@
-<p>
-  add-question works!
-</p>
+<h1>Pose a new question</h1>
+<form [formGroup]="question" (ngSubmit)="onSubmit()">
+<div>
+  <p>
+    <label for="title">Question: </label>
+    <input type="text" id="title" formControlName="title">
+  </p>
+  <p>
+    <label for="body">Body: </label>
+    <input type="text" id="body" formControlName="body">
+  </p>
+</div>
+<button type="submit">Pose question</button>
+</form>

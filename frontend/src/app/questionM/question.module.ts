@@ -10,6 +10,7 @@ import { QuestionService } from './question.service';
 import { Routes, RouterModule } from '@angular/router';
 import { Question } from './question/question.model';
 import { QuestionResolver } from './question-resolver';
+import { AnswerComponent } from './answer/answer.component';
 
 const appRoutes: Routes = [
   { path: 'questions', component: QuestionListComponent },
@@ -27,6 +28,7 @@ const appRoutes: Routes = [
   declarations: [
     QuestionComponent,
     QuestionDetailComponent,
+    AnswerComponent,
     QuestionListComponent,
     AddQuestionComponent
   ],

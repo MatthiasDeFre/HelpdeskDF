@@ -3,6 +3,7 @@ var router = express.Router();
 let mongoose = require('mongoose');
 
 let Question = mongoose.model('Question');
+let Answer = mongoose.model("Answer");
 /* GET home page. */
 router.get('/API/questions', function(req, res, next) {
   Question.find(function(err, questions){
@@ -17,7 +18,7 @@ router.get('/API/question/:question', function(req, res, next) {
 });
 
 router.post('/API/questions/', function (req, res, next) {
-    let question = new Question(req.body);
+    let question = new Question({title: req.body.title, body:req.body.body, posted: req.body.datePosted});
     question.save(function(err, rec) {
       if (err)
        return next(err);
@@ -39,16 +40,37 @@ router.post('/API/questions/', function (req, res, next) {
   });
  })
  router.param('question', function(req, res, next, id) {
-    let query = Question.findById(id);
+    let query = Question.findById(id).populate("answers");
+   
     query.exec(function(err, question) {
+      
       if (err) {
-        return next(err);
+      //  console.log("ja ja");
+    //    return next(err);
+      return next(new Error('not found ' + id));
       }
-      if (!question) {
-        return next(new Error('not found ' + id));
-      }
+     /* if (!question) {
+       
+      }*/
       req.question = question;
       return next();
     });
   });
+
+  router.post('/API/question/:question/answers', 
+  function(req, res, next) {
+  let answer = new Answer({body : req.body.body, posted : new Date()});
+   console.log(answer);
+  answer.save(function(err, rec) {
+    console.log(err);
+    if (err) return next(err);
+    
+    req.question.answers.push(rec);
+    
+    req.question.save(function(err, rec) {
+      if (err) return next(err);
+      res.json(rec);
+    })
+  });
+});
 module.exports = router;
