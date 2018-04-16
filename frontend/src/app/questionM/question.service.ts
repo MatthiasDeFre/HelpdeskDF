@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Question } from './question/question.model';
-import { User } from './user/user.model';
+import { User } from '../user/user.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
@@ -38,6 +38,13 @@ export class QuestionService {
         .delete(`${this._appUrl}/question/${question.id}`)
         .pipe(map(Question.fromJSON));
     }
+    
+  getQuestion(id: string) {
+    const theUrl = `${this._appUrl}/question/${id}`;
+    console.log(theUrl);
+    console.log(this.http.get(theUrl).pipe(map(Question.fromJSON)));
+    return this.http.get(theUrl).pipe(map(Question.fromJSON));
+  }
  /* constructor() { 
     let user = new User("iemand");
     this._questions.push(new Question(user, "Vraag 1", "nog iets"));

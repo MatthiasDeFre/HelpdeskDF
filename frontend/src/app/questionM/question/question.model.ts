@@ -1,4 +1,4 @@
-import { User } from "../user/user.model";
+import { User } from "../../user/user.model";
 import { Router } from "@angular/router";
 
 export class Question {
@@ -39,6 +39,7 @@ export class Question {
         console.log("id" + json._id);
         question._id = json._id;
         console.log("id2: " + question._id);
+        console.log(question);
         return question;
       }
     

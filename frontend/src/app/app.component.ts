@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { QuestionComponent } from './question/question.component';
-import { QuestionService } from './question.service';
-import { Question } from './question/question.model';
+import { QuestionComponent } from './questionM/question/question.component';
+import { QuestionService } from './questionM/question.service';
+import { Question } from './questionM/question/question.model';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
