@@ -6,18 +6,10 @@
 <p>{{question.body}}</p>
 </div>
 </div>  
+<div class="addanwser">
+  <app-add-answer  [question]='question'></app-add-answer>
+</div>
 <div class="anwsers ui segments">
   ANWSERS
-  <div class="ui segment">
-    <P>something something</P>
-  </div>
-  <div class="ui segment">
-    <P>something something</P>
-  </div>
-  <div class="ui segment">
-    <P>something something</P>
-  </div>
-</div>
-<div class="addanwser">
-  ADD
+  <app-answer *ngFor="let answer of question.answers" [answer]='answer'></app-answer>
 </div>

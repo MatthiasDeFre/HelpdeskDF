@@ -33,20 +33,27 @@ export class Question {
     get body() : string {
         return this._body;
     }
-    
+    set body(body : string)  {
+        this._body = body;
+    }
     get answers() : Answer[] {
         return this._answers;
     }
 
+    addAnswer(answer : Answer) {
+        this._answers.push(answer);
+    }
     static fromJSON(json: any): Question {
         const question = new Question(
           new User("Iemand"),
           json.body,
           json.title,
-          json.date
+          json.date,
+        
         );
         console.log("id" + json._id);
         question._id = json._id;
+        question._answers =   json.answers.map(Answer.fromJSON);
         console.log("id2: " + question._id);
         console.log(question);
         return question;
@@ -57,7 +64,8 @@ export class Question {
             _id: this._id,
             body: this._body,
             title: this._title,
-            date: this._datePosted
+            date: this._datePosted,
+            ingredients: this._answers.map(i => i.toJSON())
         }
     }
 }

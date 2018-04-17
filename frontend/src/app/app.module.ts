@@ -10,13 +10,11 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
     PageNotFoundComponent,
 
-   
   ],
   imports: [
     BrowserModule,

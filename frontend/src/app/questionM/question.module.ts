@@ -11,6 +11,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { Question } from './question/question.model';
 import { QuestionResolver } from './question-resolver';
 import { AnswerComponent } from './answer/answer.component';
+import { AddAnswerComponent } from './add-answer/add-answer.component';
 
 const appRoutes: Routes = [
   { path: 'questions', component: QuestionListComponent },
@@ -30,7 +31,8 @@ const appRoutes: Routes = [
     QuestionDetailComponent,
     AnswerComponent,
     QuestionListComponent,
-    AddQuestionComponent
+    AddQuestionComponent,
+    AddAnswerComponent
   ],
   providers: [
     QuestionService,

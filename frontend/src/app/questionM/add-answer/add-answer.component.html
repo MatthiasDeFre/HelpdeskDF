@@ -1,0 +1,11 @@
+<h1>Submit a new answer</h1>
+<form [formGroup]="answer" (ngSubmit)="onSubmit()">
+<div>
+  <p>
+    <label for="body">Body: </label>
+    <input type="text" id="body" formControlName="body">
+  </p>
+  <p>{{id}}</p>
+</div>
+<button class="ui button" type="submit">Submit answer</button>
+</form>

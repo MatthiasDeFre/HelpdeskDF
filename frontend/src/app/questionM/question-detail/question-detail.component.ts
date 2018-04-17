@@ -23,6 +23,10 @@ export class QuestionDetailComponent implements OnInit {
     );
     console.log(this._question);
   }
+  
+  get id() {
+    return this._question.id;
+  }
   get question() {
     return this._question;
   }

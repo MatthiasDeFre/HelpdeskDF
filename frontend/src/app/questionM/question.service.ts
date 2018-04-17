@@ -4,6 +4,7 @@ import { User } from '../user/user.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
+import { Answer } from './answer/answer.model';
 @Injectable()
 export class QuestionService {
 
@@ -30,6 +31,13 @@ export class QuestionService {
       return this.http
         .post(`${this._appUrl}/questions/`, question)
           .pipe(map(Question.fromJSON));
+    }
+    addAnswerToQuestion(id : String, answer : Answer) : Observable<Answer> {
+    //   let question;
+      //this.getQuestion(id).subscribe(item => question = item);
+    //  question.addAnswer(answer);
+    return this.http
+      .post(`${this._appUrl}/question/${id}/answers`, answer).pipe(map(Answer.fromJSON));
     }
     deleteQuestion(question) {
       console.log("deleting");
