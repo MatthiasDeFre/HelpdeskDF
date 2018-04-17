@@ -1,15 +1,19 @@
 
 <div>
-<h3>{{question.title}}</h3>
+<h1>{{question.title}}</h1>
 <hr>
 <div class="questionbody">
-<p>{{question.body}}</p>
+  <div class="ui form">
+  <div class="field">
+  <textarea disabled>{{question.body}}</textarea>
+</div>
+</div>
 </div>
 </div>  
 <div class="addanwser">
   <app-add-answer  [question]='question'></app-add-answer>
 </div>
-<div class="anwsers ui segments">
+<div class="anwsers ui comments">
   ANWSERS
-  <app-answer *ngFor="let answer of question.answers" [answer]='answer'></app-answer>
+  <app-answer class="answer" *ngFor="let answer of question.answers" [answer]='answer'></app-answer>
 </div>

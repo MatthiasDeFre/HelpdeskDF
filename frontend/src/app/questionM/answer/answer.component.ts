@@ -16,5 +16,8 @@ export class AnswerComponent implements OnInit {
   get body() : String {
     return this.answer.body;
   }
+  get datePosted() : Date  {
 
+    return this.answer.datePosted;
+  }
 }

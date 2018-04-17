@@ -1,0 +1,19 @@
+button.ui.button.paddedbutton {
+    margin-top: 10px ;
+    margin-bottom: 10px;
+}
+
+div.ui.comment.borderedcomment {
+    border-style: solid;
+    border-color: rgb(201, 202, 204);
+    border-width: 1px;
+   
+    margin: 10px;
+    margin-left: 0px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+div.content.paddedcontent {
+    padding-top: 10px;
+}

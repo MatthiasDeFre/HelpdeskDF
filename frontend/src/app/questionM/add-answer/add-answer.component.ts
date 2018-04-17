@@ -21,7 +21,6 @@ export class AddAnswerComponent implements OnInit {
   ngOnInit() {
     this.answer = this.fb.group({
       body: ["",[Validators.required, Validators.minLength(10)]]
-
     })
   }
   onSubmit() {

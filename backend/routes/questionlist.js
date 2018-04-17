@@ -69,7 +69,7 @@ router.post('/API/questions/', function (req, res, next) {
     
     req.question.save(function(err, rec) {
       if (err) return next(err);
-      res.json(rec);
+      res.json(answer);
     })
   });
 });

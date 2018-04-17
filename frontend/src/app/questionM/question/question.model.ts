@@ -14,6 +14,7 @@ export class Question {
         this._body = body;
         this._title = title;
         this._datePosted=date;
+        this._answers = new Array();
         console.log(body);
     }
     get id() : String {
@@ -60,12 +61,13 @@ export class Question {
       }
     
     toJSON() {
+        console.log(this._answers);
         return {
             _id: this._id,
             body: this._body,
             title: this._title,
             date: this._datePosted,
-            ingredients: this._answers.map(i => i.toJSON())
+            answers: this._answers.map(i => i.toJSON())
         }
     }
 }

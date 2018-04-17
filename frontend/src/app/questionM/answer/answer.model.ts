@@ -20,13 +20,14 @@ export class Answer {
     }
 
     static fromJSON(json: any): Answer {
+        console.log(json);
         const answer = new Answer(
           json.body
         
         );
-        console.log("JSONBODY" +json.body);
+        console.log("JSONBODY" +json.posted);
         answer._id = json._id;
-        answer._datePosted = json.date;
+        answer._datePosted = json.posted;
         return answer;
       }
     
@@ -34,7 +35,7 @@ export class Answer {
         return {
             _id: this._id,
             body: this._body,
-            date: this._datePosted,
+            posted: this._datePosted,
            
         }
     }

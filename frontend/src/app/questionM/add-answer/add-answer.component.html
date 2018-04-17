@@ -1,11 +1,10 @@
-<h1>Submit a new answer</h1>
-<form [formGroup]="answer" (ngSubmit)="onSubmit()">
-<div>
-  <p>
+<h3>Submit a new answer</h3>
+<form class="mainform" [formGroup]="answer" (ngSubmit)="onSubmit()">
+<div class="ui form">
+  <div class="field">
     <label for="body">Body: </label>
-    <input type="text" id="body" formControlName="body">
-  </p>
-  <p>{{id}}</p>
+    <textarea rows="3" id="body" formControlName="body"></textarea>
+  </div>
 </div>
-<button class="ui button" type="submit">Submit answer</button>
+<button class="ui button paddedbutton" type="submit">Submit answer</button>
 </form>
