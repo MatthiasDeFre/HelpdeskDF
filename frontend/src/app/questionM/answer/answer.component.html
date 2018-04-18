@@ -1,12 +1,20 @@
-<div class="ui comment borderedcomment"> 
-   
+<div id={{id}} class="ui comment borderedcomment"> 
+    
+        <a class="avatar padded">
+                <img src="assets/images/person.png">
+             </a>
     <div class="content paddedcontent">
+    
         <a class="author">Matt</a>
         <div class="metadata">
           <span class="date">{{datePosted}}</span>
         </div>
-        <div class="text">
-            <p>{{body}}</p>
+        <div class="text" [innerHtml]="body">
+        </div>
+        <div class="actions">
+          <a class="reply">Quote</a>
         </div>
       </div>
+      
 </div>
+

@@ -19,18 +19,22 @@ export class AddAnswerComponent implements OnInit {
   constructor(private fb : FormBuilder, private questionService : QuestionService, private router : Router) { }
 
   ngOnInit() {
-    this.answer = this.fb.group({
-      body: ["",[Validators.required, Validators.minLength(10)]]
-    })
+    this.answer = this.createFormGroup(); 
   }
   onSubmit() {
     console.log("submit");
-    const answer = new Answer(this.answer.value.body);
+    let body = this.answer.value.body
+    /*body = body.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); 
+    body = body.replace(new RegExp("<script>", 'g'), "<^script^>");
+    body = body.replace(new RegExp("</script>", 'g'), "<^/script^>");*/
+    const answer = new Answer(body);
     console.log(this.answer.value.body);
     this.questionService.addAnswerToQuestion(this.question.id, answer).subscribe(
       (item) => this.question.addAnswer(item),
       () => {},
-      () =>  {});
+      () =>  {
+       this.answer = this.createFormGroup();
+      });
     
     /*this.questionService.addNewQuestion(question).subscribe(
       (item) => this.answer.id = item.id,
@@ -40,5 +44,11 @@ export class AddAnswerComponent implements OnInit {
 
   get id() {
     return this.question.id;
+  }
+
+  createFormGroup() : FormGroup {
+    return this.fb.group({
+      body: ["",[Validators.required, Validators.minLength(10)]]
+    });
   }
 }

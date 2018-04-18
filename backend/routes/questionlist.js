@@ -59,7 +59,9 @@ router.post('/API/questions/', function (req, res, next) {
 
   router.post('/API/question/:question/answers', 
   function(req, res, next) {
-  let answer = new Answer({body : req.body.body, posted : new Date()});
+    let body = req.body.body;
+    body = escapeString(body);
+  let answer = new Answer({body : body, posted : new Date()});
    console.log(answer);
   answer.save(function(err, rec) {
     console.log(err);
@@ -73,4 +75,11 @@ router.post('/API/questions/', function (req, res, next) {
     })
   });
 });
+
+let escapeString = function(body)  {
+  body = body.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); 
+  body = body.replace(new RegExp("<script>", 'g'), "<^script^>");
+  body = body.replace(new RegExp("</script>", 'g'), "<^/script^>");
+  return body;
+}
 module.exports = router;

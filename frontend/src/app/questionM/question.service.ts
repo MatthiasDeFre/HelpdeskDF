@@ -49,8 +49,6 @@ export class QuestionService {
     
   getQuestion(id: string) {
     const theUrl = `${this._appUrl}/question/${id}`;
-    console.log(theUrl);
-    console.log(this.http.get(theUrl).pipe(map(Question.fromJSON)));
     return this.http.get(theUrl).pipe(map(Question.fromJSON));
   }
  /* constructor() { 

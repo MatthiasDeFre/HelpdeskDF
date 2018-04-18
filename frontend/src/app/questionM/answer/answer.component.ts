@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Answer } from './answer.model';
+
 
 @Component({
   selector: 'app-answer',
@@ -8,10 +9,15 @@ import { Answer } from './answer.model';
 })
 export class AnswerComponent implements OnInit {
 
+  @Output() public quoteText = new EventEmitter<String>();
   @Input() public answer : Answer;
+  
   constructor() { }
 
   ngOnInit() {
+  }
+  get id() : String {
+    return this.answer.id;
   }
   get body() : String {
     return this.answer.body;
@@ -19,5 +25,10 @@ export class AnswerComponent implements OnInit {
   get datePosted() : Date  {
 
     return this.answer.datePosted;
+  }
+
+  quote() : boolean {
+    this.quoteText.emit(this.answer.body);
+    return true;
   }
 }

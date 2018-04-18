@@ -17,3 +17,7 @@ div.ui.comment.borderedcomment {
 div.content.paddedcontent {
     padding-top: 10px;
 }
+
+a.avatar.padded {
+    padding-top: 10px;
+}
