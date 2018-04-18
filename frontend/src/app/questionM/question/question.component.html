@@ -1,8 +1,20 @@
 
-<div class="ui segment" (click)="test()">
-  <p>Id: {{id}}</p>
+<div class="ui black segment" (click)="test()">
   <p>Question: {{title}}</p>
-  <p>Body: {{body}}</p>
-  <a class='item' routerLinkActive='active' 
-  routerLink="['question', {{id}}]" >Details</a>
+
+  <div>
+    <a class='item' routerLinkActive='active' 
+    routerLink="['question', {{id}}]" >Details</a>
+  </div>
+    <div class="ui mini statistic">
+      <div class="value">
+          <i class="comments icon"></i>
+        {{answerAmount}}
+      </div>
+      <div class="label">
+        Answers
+      </div>
+    </div>
+  
 </div>
+<div></div>

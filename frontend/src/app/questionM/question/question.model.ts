@@ -8,7 +8,8 @@ export class Question {
     private _body : string;
     private _title : string;
     private _datePosted : Date;
-    private _answers : Answer[]
+    private _answers : Answer[];
+    
     constructor(poster : User, body : string, title : string, date:Date) {
         this._poster = poster;
         this._body = body;
@@ -40,7 +41,9 @@ export class Question {
     get answers() : Answer[] {
         return this._answers;
     }
-
+    get answerAmount() : number {
+        return this._answers.length;
+    }
     addAnswer(answer : Answer) {
         this._answers.push(answer);
     }
@@ -50,7 +53,7 @@ export class Question {
           json.body,
           json.title,
           json.date,
-        
+
         );
         console.log("id" + json._id);
         question._id = json._id;

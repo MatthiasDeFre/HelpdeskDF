@@ -1,12 +1,11 @@
 <!--The content below is only a placeholder and can be replaced.-->
-
-<p>testttt</p>
-<div class="ui container">
-  <div class="ui two item menu">
-      <a class='item' routerLinkActive='active' 
-      routerLink="/questions" >Active questions</a>
+<div class="ui inverted menu">
     <a class='item' routerLinkActive='active' 
-      routerLink="/addquestion" >Pose a new question</a>
-  </div>
+    routerLink="/questions" >Active questions</a>
+  <a class='item' routerLinkActive='active' 
+    routerLink="/addquestion" >Pose a new question</a>
+</div>
+<div class="ui container">
+  
   <router-outlet></router-outlet>
 </div>

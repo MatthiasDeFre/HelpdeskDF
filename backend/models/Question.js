@@ -5,6 +5,7 @@ var QuestionSchema = mongoose.Schema({
     title: String,
     posted: Date,
     answers: [{type: mongoose.Schema.Types.ObjectId, ref: "Answer"}]
+   
 })
 
 mongoose.model('Question', QuestionSchema);

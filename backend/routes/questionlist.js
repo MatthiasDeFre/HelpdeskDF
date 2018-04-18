@@ -6,11 +6,17 @@ let Question = mongoose.model('Question');
 let Answer = mongoose.model("Answer");
 /* GET home page. */
 router.get('/API/questions', function(req, res, next) {
-  Question.find(function(err, questions){
+  let query = Question.find();
+  query.exec(function(err, questions){
     if (err) 
         return next(err);
      res.json(questions);
   })
+  /* Question.find(function(err, questions){
+    if (err) 
+        return next(err);
+     res.json(questions);
+  })*/
 });
 
 router.get('/API/question/:question', function(req, res, next) {

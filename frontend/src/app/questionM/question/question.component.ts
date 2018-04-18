@@ -24,7 +24,9 @@ export class QuestionComponent implements OnInit {
   get body() : string {
     return this.question.body;
   }
-
+  get answerAmount() : number {
+    return this.question.answerAmount;
+  }
   test(){
     this._router.navigate(["/question", this.question.id]);
   }
