@@ -12,10 +12,12 @@ import { Question } from './question/question.model';
 import { QuestionResolver } from './question-resolver';
 import { AnswerComponent } from './answer/answer.component';
 import { AddAnswerComponent } from './add-answer/add-answer.component';
+import { httpInterceptorProviders } from '../http-interceptors';
+import { AuthGuardService } from '../userM/auth-guard.service';
 
 const appRoutes: Routes = [
   { path: 'questions', component: QuestionListComponent },
-  { path: 'addquestion', component: AddQuestionComponent },
+  { path: 'addquestion',canActivate: [ AuthGuardService ], component: AddQuestionComponent },
   { path: 'question/:id', component: QuestionDetailComponent, resolve: {question: QuestionResolver} },
 ];
 
@@ -36,7 +38,8 @@ const appRoutes: Routes = [
   ],
   providers: [
     QuestionService,
-    QuestionResolver
+    QuestionResolver,
+    httpInterceptorProviders
   ]
 })
 export class QuestionModule {

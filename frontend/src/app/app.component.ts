@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AuthenticationService } from './userM/authentication.service';
+import { Observable } from 'rxjs/Observable';
+import { User } from './userM/user.model';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +11,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class AppComponent {
   title = 'app';
+  constructor(private authService: AuthenticationService) {}
+
+  get currentUser(): Observable<String> {
+   
+    return this.authService.username$;
+  }
 }

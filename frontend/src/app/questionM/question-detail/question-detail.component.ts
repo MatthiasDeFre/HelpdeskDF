@@ -31,4 +31,8 @@ export class QuestionDetailComponent implements OnInit {
     return this._question;
   }
 
+  get postername() {
+    return this._question.poster.name;
+  }
+
 }

@@ -1,10 +1,17 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="ui inverted menu">
+    
     <a class='item' routerLinkActive='active' 
     routerLink="/questions" >Active questions</a>
+ 
   <a class='item' routerLinkActive='active' 
     routerLink="/addquestion" >Pose a new question</a>
+    <a *ngIf='(currentUser | async) else loginlink' class="item" routerLinkActive='active' routerLink="/logout">Logout: {{currentUser |async}}</a>
+    <ng-template #loginlink>
+      <a class="item" routerLinkActive='active' routerLink="/login">log in</a>
+    </ng-template>
 </div>
+
 <div class="ui container">
   
   <router-outlet></router-outlet>

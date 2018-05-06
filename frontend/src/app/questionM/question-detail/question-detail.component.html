@@ -1,6 +1,7 @@
-
+<div class="borderedcontent">
 <div>
 <h1>{{question.title}}</h1>
+<h2>by {{postername}}</h2>
 <hr>
 <div class="questionbody">
   <div class="ui form">
@@ -16,4 +17,5 @@
 <div class="anwsers ui comments">
   ANWSERS
   <app-answer class="answer" *ngFor="let answer of question.answers" [answer]='answer'></app-answer>
+</div>
 </div>

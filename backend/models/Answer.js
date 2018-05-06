@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 
 var AnswerSchema = mongoose.Schema({
+    poster : {type: mongoose.Schema.Types.ObjectId, ref: "User"},
     body: String,
     posted: Date
 })

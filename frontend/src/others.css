@@ -40,3 +40,15 @@ div.vote {
     display: block;
     
 }
+
+div.borderedcontent {
+    margin-top: 20px;
+    padding: 20px;
+    border-style: solid;
+    border-color: rgb(201, 202, 204);
+    border-width: 1px;
+    -moz-box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    -o-box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    -webkit-box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}

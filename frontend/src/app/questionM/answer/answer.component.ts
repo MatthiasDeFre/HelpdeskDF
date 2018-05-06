@@ -26,6 +26,10 @@ export class AnswerComponent implements OnInit {
 
     return this.answer.datePosted;
   }
+  get poster() : String {
+  
+    return this.answer.poster.name;
+  }
 
   quote() : boolean {
     this.quoteText.emit(this.answer.body);

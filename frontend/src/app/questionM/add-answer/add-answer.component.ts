@@ -4,6 +4,7 @@ import { QuestionService } from '../question.service';
 import { Router } from '@angular/router';
 import { Answer } from '../answer/answer.model';
 import { Question } from '../question/question.model';
+import { AuthenticationService } from '../../userM/authentication.service';
 
 @Component({
   selector: 'app-add-answer',
@@ -15,8 +16,9 @@ export class AddAnswerComponent implements OnInit {
 
   @Input() public question : Question;
   private answer : FormGroup
-  
-  constructor(private fb : FormBuilder, private questionService : QuestionService, private router : Router) { }
+  private _errorMessage : String;
+
+  constructor(private fb : FormBuilder, private questionService : QuestionService, private router : Router, private authService: AuthenticationService) { }
 
   ngOnInit() {
     this.answer = this.createFormGroup(); 
@@ -28,10 +30,13 @@ export class AddAnswerComponent implements OnInit {
     body = body.replace(new RegExp("<script>", 'g'), "<^script^>");
     body = body.replace(new RegExp("</script>", 'g'), "<^/script^>");*/
     const answer = new Answer(body);
-    console.log(this.answer.value.body);
+    answer.poster = this.authService.user$.getValue();
+    console.log(this.authService.user$.getValue());
     this.questionService.addAnswerToQuestion(this.question.id, answer).subscribe(
-      (item) => this.question.addAnswer(item),
-      () => {},
+      (item) => {this.question.addAnswer(item)},
+      (err) => {
+       this._errorMessage = "Please login";
+      },
       () =>  {
        this.answer = this.createFormGroup();
       });
@@ -44,6 +49,10 @@ export class AddAnswerComponent implements OnInit {
 
   get id() {
     return this.question.id;
+  }
+
+  get errorMessage() {
+    return this._errorMessage;
   }
 
   createFormGroup() : FormGroup {

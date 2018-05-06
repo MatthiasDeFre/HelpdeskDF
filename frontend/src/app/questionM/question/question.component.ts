@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Question } from './question.model';
 import { QuestionService } from '../question.service';
-import { User } from '../../user/user.model';
+import { User } from '../../userM/user.model';
 import { Router } from '@angular/router';
 
 

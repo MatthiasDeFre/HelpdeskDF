@@ -1,4 +1,4 @@
-import { User } from "../../user/user.model";
+import { User } from "../../userM/user.model";
 import { Router } from "@angular/router";
 import { Answer } from "../answer/answer.model";
 
@@ -49,24 +49,24 @@ export class Question {
     }
     static fromJSON(json: any): Question {
         const question = new Question(
-          new User("Iemand"),
+          new User("Niemand", "Iemand"),
           json.body,
           json.title,
           json.date,
 
         );
-        console.log("id" + json._id);
+    
         question._id = json._id;
         question._answers =   json.answers.map(Answer.fromJSON);
-        console.log("id2: " + question._id);
-        console.log(question);
+
         return question;
       }
     
     toJSON() {
-        console.log(this._answers);
+   
         return {
             _id: this._id,
+            poster: this._poster.id,
             body: this._body,
             title: this._title,
             date: this._datePosted,

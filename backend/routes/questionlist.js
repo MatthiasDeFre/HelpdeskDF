@@ -1,7 +1,10 @@
 var express = require('express');
 var router = express.Router();
 let mongoose = require('mongoose');
+let jwt = require('express-jwt');
+let auth = jwt({secret: process.env.BACKEND_SECRET});
 
+var User = mongoose.model('User');
 let Question = mongoose.model('Question');
 let Answer = mongoose.model("Answer");
 /* GET home page. */
@@ -10,6 +13,7 @@ router.get('/API/questions', function(req, res, next) {
   query.exec(function(err, questions){
     if (err) 
         return next(err);
+      
      res.json(questions);
   })
   /* Question.find(function(err, questions){
@@ -23,8 +27,8 @@ router.get('/API/question/:question', function(req, res, next) {
   res.json(req.question);
 });
 
-router.post('/API/questions/', function (req, res, next) {
-    let question = new Question({title: req.body.title, body:req.body.body, posted: req.body.datePosted});
+router.post('/API/questions/', auth, function (req, res, next) {
+    let question = new Question({poster: req.body.poster, title: req.body.title, body:req.body.body, posted: req.body.datePosted});
     question.save(function(err, rec) {
       if (err)
        return next(err);
@@ -32,21 +36,22 @@ router.post('/API/questions/', function (req, res, next) {
     });
   });  
 
- router.delete("/API/question/:question", function(req, res, next){
+ router.delete("/API/question/:question", auth, function(req, res, next){
   req.question.remove(function(err) {
     if (err) { return next(err); }   
     res.json("removed question");
   });
  })
 
- router.put("/API/question/:question", function(req, res, next){
+ router.put("/API/question/:question", auth,function(req, res, next){
   req.question.save(function(err) {
     if (err) { return next(err); }   
     res.json(req.question);
   });
  })
  router.param('question', function(req, res, next, id) {
-    let query = Question.findById(id).populate("answers");
+   //Make sure only username is selected and not salt + hash
+    let query = Question.findById(id).populate({path: 'answers', populate : {path: 'poster', select: "username"}, select: "body id"}).populate("poster", "username");
    
     query.exec(function(err, question) {
       
@@ -59,25 +64,34 @@ router.post('/API/questions/', function (req, res, next) {
        
       }*/
       req.question = question;
+   
       return next();
     });
   });
 
-  router.post('/API/question/:question/answers', 
+  router.post('/API/question/:question/answers', auth,
   function(req, res, next) {
     let body = req.body.body;
     body = escapeString(body);
-  let answer = new Answer({body : body, posted : new Date()});
-   console.log(answer);
+    
+  let answer = new Answer({poster: req.body.poster, body : body, posted : new Date()});
+  
   answer.save(function(err, rec) {
-    console.log(err);
+    
     if (err) return next(err);
     
     req.question.answers.push(rec);
     
     req.question.save(function(err, rec) {
       if (err) return next(err);
-      res.json(answer);
+      Answer.populate(answer, {path: "poster", select: "username"}, function(err, answer2) {
+        answer.poster = answer2.poster;
+        console.log(answer2);
+        res.json(answer2);
+      })
+   //   console.log("a1");
+    //  console.log(answer);
+     // res.json(answer);
     })
   });
 });
@@ -88,4 +102,5 @@ let escapeString = function(body)  {
   body = body.replace(new RegExp("</script>", 'g'), "<^/script^>");
   return body;
 }
+
 module.exports = router;
