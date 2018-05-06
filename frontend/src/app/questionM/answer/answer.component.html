@@ -3,18 +3,33 @@
         <a class="avatar padded">
                 <img src="assets/images/person.png">
              </a>
+             <div class="vote">
+             <button class="ui icon button vote">
+              <i class="cloud icon"></i>
+            </button>
+            <div class="ui mini horizontal statistic vote">
+              <div class="value">
+                2,204
+              </div>
+              </div>
+            <button class="ui icon button vote">
+              <i class="cloud icon"></i>
+            </button>
+          </div>
     <div class="content paddedcontent">
     
         <a class="author">Matt</a>
         <div class="metadata">
-          <span class="date">{{datePosted}}</span>
+          <span class="date">{{datePosted | date : 'longDate'}}</span>
         </div>
         <div class="text" [innerHtml]="body">
         </div>
-        <div class="actions">
+        <div style="float:left" class="actions quote">
           <a class="reply">Quote</a>
         </div>
+        
       </div>
+    
       
 </div>
 

@@ -12,6 +12,7 @@ div.ui.comment.borderedcomment {
     margin-left: 0px;
     padding: 10px;
     box-sizing: border-box;
+    padding-bottom: 86px;
 }
 
 div.content.paddedcontent {
@@ -20,4 +21,22 @@ div.content.paddedcontent {
 
 a.avatar.padded {
     padding-top: 10px;
+}
+
+button.ui.icon.button.vote {
+    float: left;
+    clear: left;
+    margin-top: 5px;
+}
+
+div.statistic.vote {
+    float: left;
+    clear: left;
+}
+
+div.vote {
+    float: right;
+    clear: right;
+    display: block;
+    
 }
