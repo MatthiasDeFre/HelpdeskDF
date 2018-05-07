@@ -38,7 +38,7 @@ export class ChatComponent implements OnInit {
   leave() {
     this._chatservice.leaveRoom({user: this._authservice.username$.getValue(), room: this.room});
   }
-  sendMessage(data) {
+  sendMessage() {
     this._chatservice.sendMessage({user: this._authservice.username$.getValue(), room:this.room, message: this.messageText});
   }
  
