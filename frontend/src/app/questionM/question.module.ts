@@ -14,6 +14,7 @@ import { AnswerComponent } from './answer/answer.component';
 import { AddAnswerComponent } from './add-answer/add-answer.component';
 import { httpInterceptorProviders } from '../http-interceptors';
 import { AuthGuardService } from '../userM/auth-guard.service';
+import { basehttpInterceptorProviders } from '../interceptors';
 
 const appRoutes: Routes = [
   { path: 'questions', component: QuestionListComponent },
@@ -39,7 +40,8 @@ const appRoutes: Routes = [
   providers: [
     QuestionService,
     QuestionResolver,
-    httpInterceptorProviders
+    httpInterceptorProviders,
+    basehttpInterceptorProviders
   ]
 })
 export class QuestionModule {

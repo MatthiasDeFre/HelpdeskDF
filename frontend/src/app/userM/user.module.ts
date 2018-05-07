@@ -7,6 +7,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationService } from './authentication.service';
 import { LogoutComponent } from './logout/logout.component';
 import { AuthGuardService } from './auth-guard.service';
+import { basehttpInterceptorProviders } from '../interceptors';
+import { httpInterceptorProviders } from '../http-interceptors';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -24,7 +26,9 @@ const appRoutes: Routes = [
   declarations: [LoginComponent, RegisterComponent, LogoutComponent],
   providers: [
     AuthenticationService,
-    AuthGuardService
+    AuthGuardService,
+    httpInterceptorProviders,
+    basehttpInterceptorProviders
 
   ]
 })
