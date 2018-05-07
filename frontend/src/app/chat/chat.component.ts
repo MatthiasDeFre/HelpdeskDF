@@ -12,10 +12,10 @@ import { AuthenticationService } from '../userM/authentication.service';
 })
 export class ChatComponent implements OnInit {
  
-  private user : string;
-  private room : string;
-  private messageText : string;
-  private messageArray:Array<{user:String, message:String}> =[];
+  public user : string;
+  public room : string;
+  public messageText : string;
+  public messageArray:Array<{user:String, message:String}> =[];
   constructor(private _chatservice : ChatService, private _authservice : AuthenticationService) {
     this._chatservice.newUserJoined().subscribe(data => {
         this.messageArray.push(data);
@@ -30,6 +30,7 @@ export class ChatComponent implements OnInit {
 
   ngOnInit() {
   }
+
   join() {
     console.log();
     this._chatservice.joinRoom({user: this._authservice.username$.getValue(), room: this.room});
