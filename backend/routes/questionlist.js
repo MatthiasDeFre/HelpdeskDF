@@ -10,6 +10,7 @@ let Answer = mongoose.model("Answer");
 
 /* GET home page. */
 router.get('/API/questions', function(req, res, next) {
+  console.log("questions");
   let query = Question.find();
   query.exec(function(err, questions){
     if (err) 

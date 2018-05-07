@@ -40,8 +40,8 @@ const appRoutes: Routes = [
   providers: [
     QuestionService,
     QuestionResolver,
-    basehttpInterceptorProviders,
-    httpInterceptorProviders,
+
+    httpInterceptorProviders
  
   ]
 })
