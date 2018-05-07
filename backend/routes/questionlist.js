@@ -8,11 +8,6 @@ var User = mongoose.model('User');
 let Question = mongoose.model('Question');
 let Answer = mongoose.model("Answer");
 
-router.get('/chat', function(req, res,){
-  console.log("filetest");
-  res.json("index.html");
-});
-
 /* GET home page. */
 router.get('/API/questions', function(req, res, next) {
   let query = Question.find();

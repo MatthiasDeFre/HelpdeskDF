@@ -11,6 +11,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { UserModule } from './userM/user.module';
 import { ChatComponent } from './chat/chat.component';
 import { FormsModule } from '@angular/forms';
+import { basehttpInterceptorProviders } from './interceptors';
+import { httpInterceptorProviders } from './http-interceptors';
 
 
 @NgModule({
@@ -28,6 +30,8 @@ import { FormsModule } from '@angular/forms';
     AppRoutingModule,
     FormsModule
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  providers: [ httpInterceptorProviders,
+    basehttpInterceptorProviders]
 })
 export class AppModule { }

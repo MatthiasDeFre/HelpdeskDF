@@ -31,13 +31,14 @@ export class ChatComponent implements OnInit {
   ngOnInit() {
   }
   join() {
-    this._chatservice.joinRoom({user: this.user, room: this.room});
+    console.log();
+    this._chatservice.joinRoom({user: this._authservice.username$.getValue(), room: this.room});
   }
   leave() {
-    this._chatservice.leaveRoom({user: this.user, room: this.room});
+    this._chatservice.leaveRoom({user: this._authservice.username$.getValue(), room: this.room});
   }
   sendMessage(data) {
-    this._chatservice.sendMessage({user: this.user, room:this.room, message: this.messageText});
+    this._chatservice.sendMessage({user: this._authservice.username$.getValue(), room:this.room, message: this.messageText});
   }
  
 }

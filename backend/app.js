@@ -6,13 +6,14 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 let passport = require('passport');
-
+let jwt = require('express-jwt');
+let auth = jwt({secret: process.env.BACKEND_SECRET});
 
 
   //Database test
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/helpdeskdb');
+mongoose.connect(process.env.HELPDESK_DB || 'mongodb://localhost/helpdeskdb');
 require("./models/Question");
 require("./models/Answer");
 require("./models/User");
@@ -25,6 +26,8 @@ var questions = require("./routes/questionlist");
 
 var app = express();
 
+let cors = require('cors');
+app.use(cors({origin: "*"}));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -64,6 +67,7 @@ var port = 3001;
 
 io.on('connection', function(socket){
   console.log("connected");
+  console.log(jwt);
   socket.on("join", function(data) {
       socket.join(data.room);
       console.log(data.user + " has joined " + data.room);
