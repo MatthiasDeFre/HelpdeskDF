@@ -11,6 +11,7 @@ let Answer = mongoose.model("Answer");
 /* GET home page. */
 router.get('/API/questions', function(req, res, next) {
   console.log("questions");
+  console.log("mongo " + process.env.HELPDESK_DB);
   let query = Question.find();
   query.exec(function(err, questions){
     if (err) 
