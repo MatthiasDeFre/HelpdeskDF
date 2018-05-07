@@ -15,8 +15,8 @@ export class AddAnswerComponent implements OnInit {
   
 
   @Input() public question : Question;
-  private answer : FormGroup
-  private _errorMessage : String;
+  public answer : FormGroup
+  public _errorMessage : String;
 
   constructor(private fb : FormBuilder, private questionService : QuestionService, private router : Router, private authService: AuthenticationService) { }
 

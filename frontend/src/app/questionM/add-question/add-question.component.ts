@@ -13,7 +13,7 @@ import { AuthenticationService } from '../../userM/authentication.service';
 })
 export class AddQuestionComponent implements OnInit {
 
-  private question : FormGroup
+  public question : FormGroup
   constructor(private fb : FormBuilder, private questionService : QuestionService, private router : Router, private authService: AuthenticationService) { }
 
   ngOnInit() {
@@ -30,4 +30,5 @@ export class AddQuestionComponent implements OnInit {
     () => {},
   ()=>  this.router.navigate(["/question", question.id]));
   }
+  
 }
