@@ -28,8 +28,7 @@ const appRoutes: Routes = [
   providers: [
     AuthenticationService,
     AuthGuardService,
-    httpInterceptorProviders,
-    basehttpInterceptorProviders
+    httpInterceptorProviders
 
   ]
 })
