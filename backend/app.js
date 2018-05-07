@@ -7,6 +7,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 let passport = require('passport');
 
+
+
   //Database test
 var mongoose = require('mongoose');
 
@@ -22,7 +24,6 @@ var users = require('./routes/users');
 var questions = require("./routes/questionlist");
 
 var app = express();
-
 
 
 // uncomment after placing your favicon in /public
@@ -53,6 +54,38 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.send('error');
+});
+
+
+//socket.io
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+var port = 3001;
+
+io.on('connection', function(socket){
+  console.log("connected");
+  socket.on("join", function(data) {
+      socket.join(data.room);
+      console.log(data.user + " has joined " + data.room);
+      socket.broadcast.to(data.room).emit("new user joined", {user : data.user, message: " has joined the room"});
+  })
+
+  socket.on("leave", function(data) {
+   
+    console.log(data.user + " has left the room: " + data.room);
+    socket.broadcast.to(data.room).emit("left room", {user : data.user, message: " has left the room"});
+
+    socket.leave(data.room);
+  })
+
+  socket.on('message', function(data){
+    console.log(data);
+    io.in(data.room).emit("new message", {user: data.user, message: data.message});
+  });
+});
+
+http.listen(3001, function(){
+  console.log('listening on *:3001');
 });
 
 module.exports = app;

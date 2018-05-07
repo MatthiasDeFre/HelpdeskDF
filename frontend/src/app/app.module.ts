@@ -9,12 +9,15 @@ import { QuestionModule } from './questionM/question.module';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { UserModule } from './userM/user.module';
+import { ChatComponent } from './chat/chat.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     PageNotFoundComponent,
+    ChatComponent,
 
   ],
   imports: [
@@ -22,7 +25,8 @@ import { UserModule } from './userM/user.module';
     HttpClientModule,
     QuestionModule,
     UserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   bootstrap: [AppComponent]
 })
