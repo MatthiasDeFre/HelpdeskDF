@@ -13,7 +13,7 @@ let auth = jwt({secret: process.env.BACKEND_SECRET});
   //Database test
 var mongoose = require('mongoose');
 
-mongoose.connect(process.env.HELPDESK_DB || 'mongodb://localhost/helpdeskdb');
+mongoose.connect(process.env.HELPDESK_DB || 'mongodb://ServiceDeskDefre:Labo123456@ds117200.mlab.com:17200/helpdeskdb');
 require("./models/Question");
 require("./models/Answer");
 require("./models/User");
