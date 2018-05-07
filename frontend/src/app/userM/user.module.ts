@@ -9,6 +9,7 @@ import { LogoutComponent } from './logout/logout.component';
 import { AuthGuardService } from './auth-guard.service';
 import { basehttpInterceptorProviders } from '../interceptors';
 import { httpInterceptorProviders } from '../http-interceptors';
+import { UserComponent } from './user.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -23,7 +24,7 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     RouterModule.forChild(appRoutes)
   ],
-  declarations: [LoginComponent, RegisterComponent, LogoutComponent],
+  declarations: [LoginComponent, RegisterComponent, LogoutComponent, UserComponent],
   providers: [
     AuthenticationService,
     AuthGuardService,
