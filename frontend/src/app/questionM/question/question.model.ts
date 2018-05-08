@@ -49,7 +49,7 @@ export class Question {
     }
     static fromJSON(json: any): Question {
         const question = new Question(
-          new User("Niemand", "Iemand"),
+          new User(json.poster.id, json.poster.username),
           json.body,
           json.title,
           json.date,
