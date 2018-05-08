@@ -40,9 +40,7 @@ const appRoutes: Routes = [
   providers: [
     QuestionService,
     QuestionResolver,
-
     httpInterceptorProviders
- 
   ]
 })
 export class QuestionModule {
