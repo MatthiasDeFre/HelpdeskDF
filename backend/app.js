@@ -27,7 +27,7 @@ var questions = require("./routes/questionlist");
 var app = express();
 
 let cors = require('cors');
-app.use(cors({origin: "https://helpdesk-frontend.herokuapp.com"}));
+app.use(cors({origin: "https://helpdesk-frontend.herokuapp.com", credentials: true}));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
