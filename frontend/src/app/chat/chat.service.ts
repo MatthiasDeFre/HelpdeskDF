@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 export class ChatService {
   private socket;
   constructor() {
-    this.socket = io(`${"https://helpdesk-backend.herokuapp.com"}:3001`);
+    this.socket = io(`${"https://helpdesk-backend.herokuapp.com"}:3000`);
    }
 
    joinRoom(data) {
