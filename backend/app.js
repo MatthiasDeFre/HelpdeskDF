@@ -69,10 +69,6 @@ app.get('/chat', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
 
-io.configure(function() {
-  io.set("transports", ["xhr-polling"]);
-  io.set("polling duration", 10);
-})
 io.on('connection', function(socket){
   console.log("connected");
   console.log(jwt);
