@@ -25,9 +25,9 @@ router.get('/API/questions', function(req, res, next) {
      res.json(questions);
   })*/
 });
-router.get('/socket.io', function(req, res, next) {
+/*router.get('/socket.io', function(req, res, next) {
   console.log("socket");
-});
+});*/
 
 router.get('/API/question/:question', function(req, res, next) {
   res.json(req.question);

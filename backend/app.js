@@ -62,7 +62,7 @@ app.use(function(err, req, res, next) {
 
 //socket.io
 var http = require('http').Server(app);
-var io = require('socket.io')(http);
+var io = require('socket.io').listen(http);
 var port = 3001;
 
 io.on('connection', function(socket){
