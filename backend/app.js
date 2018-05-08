@@ -65,32 +65,36 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var port = 3001;
 
-app.get('/socket.io', function(req, res){
-  io.on('connection', function(socket){
-    console.log("connected");
-    console.log(jwt);
-    socket.on("join", function(data) {
-        socket.join(data.room);
-        console.log(data.user + " has joined " + data.room);
-        socket.broadcast.to(data.room).emit("new user joined", {user : data.user, message: " has joined the room"});
-    })
-  
-    socket.on("leave", function(data) {
-     
-      console.log(data.user + " has left the room: " + data.room);
-      socket.broadcast.to(data.room).emit("left room", {user : data.user, message: " has left the room"});
-  
-      socket.leave(data.room);
-    })
-  
-    socket.on('message', function(data){
-      console.log(data);
-      io.in(data.room).emit("new message", {user: data.user, message: data.message});
-    });
-  });
+app.get('/chat', function(req, res){
+  res.sendFile(__dirname + '/index.html');
 });
 
+io.configure(function() {
+  io.set("transports", ["xhr-polling"]);
+  io.set("polling duration", 10);
+})
+io.on('connection', function(socket){
+  console.log("connected");
+  console.log(jwt);
+  socket.on("join", function(data) {
+      socket.join(data.room);
+      console.log(data.user + " has joined " + data.room);
+      socket.broadcast.to(data.room).emit("new user joined", {user : data.user, message: " has joined the room"});
+  })
 
+  socket.on("leave", function(data) {
+   
+    console.log(data.user + " has left the room: " + data.room);
+    socket.broadcast.to(data.room).emit("left room", {user : data.user, message: " has left the room"});
+
+    socket.leave(data.room);
+  })
+
+  socket.on('message', function(data){
+    console.log(data);
+    io.in(data.room).emit("new message", {user: data.user, message: data.message});
+  });
+});
 
 /*http.listen(process.env.PORT, function(){
   console.log("port");
