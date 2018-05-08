@@ -19,12 +19,14 @@ router.get('/API/questions', function(req, res, next) {
       
      res.json(questions);
   })
-  //testdfdfddfdffd
-  /* Question.find(function(err, questions){
+  /* Question.find(function(err, questions)gig{
     if (err) 
         return next(err);
      res.json(questions);
   })*/
+});
+router.get('/socket.io', function(req, res, next) {
+  console.log("socket");
 });
 
 router.get('/API/question/:question', function(req, res, next) {
