@@ -7,7 +7,7 @@ export class ChatService {
   private socket;
   constructor() {
     console.log("connecting");
-    this.socket = io("https://helpdesk-backend.herokuapp.com");
+    this.socket = io("https://nameless-springs-98029.herokuapp.com/");
     console.log("connected");
    }
 
