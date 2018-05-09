@@ -6,8 +6,10 @@ const path = require('path');
 
 const PORT = process.env.PORT || 3000;
 let cors = require('cors');
+let origin = process.env.HELPDESK_FRONTEND || "*";
+
 const server = express()
-  .use(cors({origin: "https://helpdesk-frontend.herokuapp.com", credentials: true}))
+  .use(cors({origin: origin, credentials: true}))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 const io = socketIO(server);
