@@ -1,0 +1,6 @@
+{
+  "name": "Helpdesk Chat",
+  "description": "Helpdesk Chat",
+  "repository": "https://github.com/MatthiasDeFre",
+  "keywords": ["node", "websocket", "socket.io"]
+}

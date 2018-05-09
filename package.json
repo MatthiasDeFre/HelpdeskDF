@@ -9,7 +9,8 @@
   "build-frontend": "cd frontend && ng build --prod",
   "commit-build-changes": "git add . && git commit -m 'chore(build): build files'",
   "deploy-frontend": "npm run build-frontend && npm run copy && git add . && git commit -m dddddd && git subtree push --prefix serve-frontend helpdesk-frontend master",
-  "copy": "cpx 'frontend/dist/**' serve-frontend/www"
+  "copy": "cpx 'frontend/dist/**' serve-frontend/www",
+  "deploy-chatserver": "git subtree push --prefix chatserver helpdesk-chat master"
  },
  "author": {
   "name": "Matthias De Fré",

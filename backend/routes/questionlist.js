@@ -34,6 +34,9 @@ router.get('/API/question/:question', function(req, res, next) {
 });
 
 router.post('/API/questions/', auth, function (req, res, next) {
+    if(req.body.title.length < 10 || req.body.body.length < 10) {
+      return next(new Error("Woops"));
+    }
     let question = new Question({poster: req.body.poster, title: req.body.title, body:req.body.body, posted: req.body.datePosted});
     question.save(function(err, rec) {
       if (err)

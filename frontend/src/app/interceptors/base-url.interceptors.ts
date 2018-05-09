@@ -10,9 +10,9 @@ export class BaseUrlInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler):
         Observable<HttpEvent<any>> {
             console.log("backend: " + BACKEND_URL)
-        if ("https://helpdesk-backend.herokuapp.com") {
+        if (BACKEND_URL) {
             req = req.clone({
-                url: `${"https://helpdesk-backend.herokuapp.com"}${req.url}`
+                url: `${BACKEND_URL}${req.url}`
             });
             // console.log('set to ', `${BACKEND_URL}${req.url}`);
         }

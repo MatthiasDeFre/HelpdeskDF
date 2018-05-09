@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 import { Observable } from 'rxjs/Observable';
-
+import { CHAT_URL } from '../../environments/environment';
 @Injectable()
 export class ChatService {
   private socket;
   constructor() {
     console.log("connecting");
-    this.socket = io("https://nameless-springs-98029.herokuapp.com/");
+    this.socket = io(CHAT_URL);
     console.log("connected");
    }
 

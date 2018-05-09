@@ -1,18 +1,9 @@
 <div>
-    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    
   <div class="ui form">
-    <h2>DavChat </h2>
+    <h2>DevChat</h2>
     <hr>
     <div>
-      <div class="ui field">
-
-
-        <label for="username">Username</label>
-        <input type="text" [(ngModel)]="user" id="username" placeholder="Enter username">
-        <!-- <small id="userHelp" class="form-text text-muted">Type your username.</small> -->
-
-      </div>
-
       <div class="ui field">
         <label for="roomInput">Choose room</label>
         <select name="roomInput" id="roomInput" [(ngModel)]="room">
@@ -30,11 +21,11 @@
     </div>
 
 
-    <div class="row">
-      <div class="well" style="height:200px; padding:15px;">
+    <div class="ui">
+      <div class="well" style="height:200px; padding:15px; overflow: scroll; overflow-x: hidden">
         <div *ngFor="let item of messageArray">
           <span>
-            <strong>{{item.user}} : </strong> {{item.message}}</span>
+            <strong>{{item.user}} : </strong> {{item.message}}></span>
         </div>
       </div>
     </div>
