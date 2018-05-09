@@ -66,3 +66,9 @@ div.well {
 	-moz-box-shadow:inset 0 1px 1px rgba(0,0,0,0.05);
 	box-shadow:inset 0 1px 1px rgba(0,0,0,0.05);
 }
+div.ui.form >  div.field.toppedoff {
+    margin-bottom:60px;
+}
+div > h1.toppedoff {
+    margin-bottom:60px;
+}

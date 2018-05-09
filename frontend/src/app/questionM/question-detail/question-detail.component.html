@@ -2,7 +2,7 @@
 <div>
 <h1>{{question.title}}</h1>
 <h2>by {{postername}}</h2>
-<hr>
+<div class="ui section divider"></div>
 <div class="questionbody">
   <div class="ui form">
   <div class="field">
@@ -11,11 +11,18 @@
 </div>
 </div>
 </div>  
+<h4 class="ui horizontal divider header">
+  <i class="bar chart icon"></i>
+  New Answer
+</h4>
 <div class="addanwser">
   <app-add-answer [question]='question'></app-add-answer>
 </div>
 <div class="anwsers ui comments">
-  ANWSERS
+  <h4 class="ui horizontal divider header">
+    <i class="bar chart icon"></i>
+    All Answers
+  </h4>
   <app-answer class="answer" *ngFor="let answer of question.answers" [answer]='answer'></app-answer>
 </div>
 </div>

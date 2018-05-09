@@ -18,8 +18,8 @@ export class AddQuestionComponent implements OnInit {
 
   ngOnInit() {
     this.question = this.fb.group({
-      title: ["",[Validators.required, Validators.minLength(10)]],
-      body: ["",[Validators.required, Validators.minLength(10)]]
+      title: ["",[Validators.required, Validators.minLength(10), Validators.maxLength(150)]],
+      body: ["",[Validators.required, Validators.minLength(10), Validators.maxLength(300)]]
 
     })
   }

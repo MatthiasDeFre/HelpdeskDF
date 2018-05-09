@@ -1,18 +1,27 @@
 <div class="borderedcontent">
-<h1> <i class="question circle outline icon"></i>Pose a new question</h1>
+<h1 class="toppedoff"> <i class="question circle outline icon"></i>Pose a new question</h1>
 
 <form [formGroup]="question" (ngSubmit)="onSubmit()">
  
     <div class="ui form">
 
-        <div class="field">
-    <label for="title">Question: </label>
+        <div class="field toppedoff">
+                <h3 class="ui horizontal divider header">
+                        <i class="bar chart icon"></i>
+                        <label for="title">Question</label>
+                      </h3>
+   
     
     <input type="text" id="title" formControlName="title">
         </div>
-        <div class="field">
-    <label for="body">Body: </label>
-    <textarea rows="3" id="body" formControlName="body"></textarea>
+        <div class="field toppedoff">
+                <h3 class="ui horizontal divider header">
+                        <i class="bar chart icon"></i>
+                        <label for="body">Body </label>
+                      </h3>
+   
+    
+    <textarea rows="5" id="body" formControlName="body"></textarea>
         </div>
 </div>
 <button [disabled]='!question.valid' class="ui button paddedbutton" type="submit">Pose question</button>

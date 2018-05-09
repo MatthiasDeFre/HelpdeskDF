@@ -9,11 +9,12 @@ let passport = require('passport');
 let jwt = require('express-jwt');
 let auth = jwt({secret: process.env.BACKEND_SECRET});
 
+let origin = process.env.HELPDESK_FRONTEND || "*";
 
   //Database test
 var mongoose = require('mongoose');
 
-mongoose.connect(process.env.HELPDESK_DB || 'mongodb://ServiceDeskDefre:Labo123456@ds117200.mlab.com:17200/helpdeskdb');
+mongoose.connect(process.env.HELPDESK_DB || 'mongodb://localhost/helpdeskdb');
 require("./models/Question");
 require("./models/Answer");
 require("./models/User");
@@ -27,7 +28,7 @@ var questions = require("./routes/questionlist");
 var app = express();
 
 let cors = require('cors');
-app.use(cors({origin: "https://helpdesk-frontend.herokuapp.com", credentials: true}));
+app.use(cors({origin: origin, credentials: true}));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
