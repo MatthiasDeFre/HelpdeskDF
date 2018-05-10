@@ -18,9 +18,9 @@
 <div class="addanwser">
   <app-add-answer [question]='question'></app-add-answer>
 </div>
-<div class="anwsers ui comments">
+<div *ngIf="question.answers" class="anwsers ui comments">
   <h4 class="ui horizontal divider header">
-    <i class="bar chart icon"></i>
+    <i class="keyboard outline icon"></i>
     All Answers
   </h4>
   <app-answer class="answer" *ngFor="let answer of question.answers" [answer]='answer'></app-answer>

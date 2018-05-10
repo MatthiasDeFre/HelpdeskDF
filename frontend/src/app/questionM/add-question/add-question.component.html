@@ -12,7 +12,7 @@
                       </h3>
    
     
-    <input type="text" id="title" formControlName="title">
+    <input type="text" id="title" formControlName="title" placeholder="What is your question?">
         </div>
         <div class="field toppedoff">
                 <h3 class="ui horizontal divider header">
@@ -21,7 +21,7 @@
                       </h3>
    
     
-    <textarea rows="5" id="body" formControlName="body"></textarea>
+    <textarea rows="5" id="body" formControlName="body" placeholder="Explain your question in detail here:"></textarea>
         </div>
 </div>
 <button [disabled]='!question.valid' class="ui button paddedbutton" type="submit">Pose question</button>

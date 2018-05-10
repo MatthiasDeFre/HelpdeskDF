@@ -6,5 +6,5 @@
 export const environment = {
   production: false
 };
-export const BACKEND_URL = "https://helpdesk-backend.herokuapp.com";
+export const BACKEND_URL = null;
 export const CHAT_URL = "https://helpdesk-chat.herokuapp.com/";

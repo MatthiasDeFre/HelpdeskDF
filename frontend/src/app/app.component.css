@@ -5,18 +5,18 @@
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #111;
+    background-color: lightgray;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
 }
 
 .sidenav a {
-    padding: 8px 8px 8px 32px;
+    padding: 8px 8px 8px 13px;
     text-decoration: none;
     font-size: 25px;
     color: #818181;
-    display: block;
+    display: inline-block;
     transition: 0.3s;
 }
 
@@ -31,8 +31,32 @@
     font-size: 36px;
     margin-left: 50px;
 }
-
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+i.fonticon {
+    padding-left: 8px;
+    font-size: 24px;
 }
+div.menu.bigscreen {
+    margin-top: 0px;
+}
+div.menu.smallscreen {
+    padding: 10px;
+    background-color: lightgray;
+}
+#mySidenav div {
+    padding: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+@media screen and (min-width: 451px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+    .bigscreen {display: flex}
+     .smallscreen {display: none}
+  }
+  @media screen and (max-width: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+    .bigscreen {display: none}
+     .smallscreen {display: block}
+  }
+  
