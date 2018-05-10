@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Answer } from './answer.model';
+import { BACKEND_URL } from '../../../environments/environment';
 
 
 @Component({
@@ -30,7 +31,11 @@ export class AnswerComponent implements OnInit {
   
     return this.answer.poster.name;
   }
-
+ get avatarUrl() : String {
+   console.log(this.answer.poster);
+   let back = BACKEND_URL == null ? "" : BACKEND_URL;
+   return "image"+back + "/" +this.answer.poster.avatar;
+ }
   quote() : boolean {
     this.quoteText.emit(this.answer.body);
     return true;

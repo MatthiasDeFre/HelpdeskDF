@@ -8,6 +8,8 @@ var User = mongoose.model('User');
 let Question = mongoose.model('Question');
 let Answer = mongoose.model("Answer");
 
+let path = require("path");
+
 /* GET home page. */
 router.get('/API/questions', function(req, res, next) {
   console.log("questions");
@@ -60,7 +62,7 @@ router.post('/API/questions/', auth, function (req, res, next) {
  })
  router.param('question', function(req, res, next, id) {
    //Make sure only username is selected and not salt + hash
-    let query = Question.findById(id).populate({path: 'answers', populate : {path: 'poster', select: "username"}, select: "body id"}).populate("poster", "username");
+    let query = Question.findById(id).populate({path: 'answers', populate : {path: 'poster', select: "username avatar"}, select: "body id"}).populate("poster", "username");
    
     query.exec(function(err, question) {
       
@@ -72,12 +74,17 @@ router.post('/API/questions/', auth, function (req, res, next) {
      /* if (!question) {
        
       }*/
+      
       req.question = question;
    
       return next();
     });
   });
 
+  router.get("/image", function(req, res, next) {
+    console.log("test");
+    res.sendFile(path.resolve("public/images"+req.params.image));
+  })
   router.post('/API/question/:question/answers', auth,
   function(req, res, next) {
     let body = req.body.body;

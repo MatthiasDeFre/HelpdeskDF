@@ -42,6 +42,8 @@ function comparePasswords(control: AbstractControl): { [key: string]: any } {
 export class RegisterComponent implements OnInit {
   public user: FormGroup;
   public errorMsg: string;
+  private fileUploaded = null;
+
 
   get passwordControl(): FormControl {
     return <FormControl>this.user.get('passwordGroup').get('password');
@@ -66,7 +68,8 @@ export class RegisterComponent implements OnInit {
           confirmPassword: ['', Validators.required]
         },
         { validator: comparePasswords }
-      )
+      ),
+      file: [null, Validators.required]
     });
   }
 
@@ -86,8 +89,14 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    this.authenticationService
-      .register(this.user.value.username, this.passwordControl.value)
+    console.log(this.fileUploaded);
+    let fd = new FormData();
+    fd.append("image", this.fileUploaded, this.fileUploaded.name);
+    this.authenticationService.uploadFile(fd).subscribe(res => {
+      console.log(res);
+      let avatar = res;
+      this.authenticationService
+      .register(this.user.value.username, this.passwordControl.value, avatar)
       .subscribe(
         val => {
           if (val) {
@@ -102,5 +111,11 @@ export class RegisterComponent implements OnInit {
           }`;
         }
       );
+    })
+    
   }
+    onFileSelected(event) {
+      console.log(event);
+      this.fileUploaded = event.target.files[0];
+    }
 }

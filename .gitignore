@@ -12,6 +12,8 @@
 /frontend/node_modules
 /chatserver/node_modules
 
+/backend/public/images
+
 # IDEs and editors
 /.idea
 .project

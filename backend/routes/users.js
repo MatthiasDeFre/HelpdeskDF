@@ -3,9 +3,31 @@ let router = express.Router();
 let mongoose = require('mongoose');
 let User = mongoose.model('User');
 let passport = require('passport');
+var multer  = require('multer');
+var storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, 'public/images'),
+  filename: (req, file, cb) => {
+    console.log("changen names");
+    console.log("name" + file.originalname);
+    if(!file.originalname.match(/\.(jpeg|png|jpg|wav)$/)) {
+      console.log("error");
+      var err = new Error();
+      err.code = 'filetype';
+      return cb(err);
+    } else  {
+      console.log("done") 
+      cb(null, + Date.now() + "_" + file.originalname);
+    }
+
+  } 
+});
+var upload = multer({ 
+  storage: storage,
+  limits: {fileSize: 10000000}
+});
 
 router.post('/register', function(req, res, next) {
-  if (!req.body.username || !req.body.password) {
+  if (!req.body.username || !req.body.password || !req.body.avatar) {
     return res.status(400).json({ message: 'Please fill out all fields' });
   }
   if (req.body.username.length < 4 || req.body.password < 6) {
@@ -14,6 +36,7 @@ router.post('/register', function(req, res, next) {
   
   let user = new User();
   user.username = req.body.username;
+  user.avatar = req.body.avatar;
   user.setPassword(req.body.password);
   user.save(function(err) {
     if (err) {
@@ -52,4 +75,11 @@ router.post('/checkusername', function(req, res, next) {
     }
   });
 });
+
+router.post('/upload', upload.single("image"), function(req, res, next) {
+  console.log("upload");
+  console.log(req.file);
+  return res.json({fileName: req.file.filename});
+});
+
 module.exports = router;

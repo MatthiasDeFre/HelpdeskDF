@@ -35,6 +35,7 @@ export class Answer {
         console.log("poster " + json.poster);
         if(json.poster) {
             answer.poster = new User(json.poster.id, json.poster.username);
+            answer.poster.avatar = json.poster.avatar;
             console.log(json.poster.id, json.poster.username);
         }
      

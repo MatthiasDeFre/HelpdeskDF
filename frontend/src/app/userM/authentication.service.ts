@@ -72,12 +72,15 @@ export class AuthenticationService {
   logout() {
     if (this.user$.getValue()) {
       localStorage.removeItem(this._tokenKey);
-      setTimeout(() => this._user$.next(null));
+      setTimeout(() => {
+        this._user$.next(null);
+        this._username$.next(null);
+      });
     }
   }
 
-  register(username: string, password: string): Observable<boolean> {
-    return this.http.post(`${this._url}/register`, { username, password }).pipe(
+  register(username: string, password: string, avatar : string): Observable<boolean> {
+    return this.http.post(`${this._url}/register`, { username, password, avatar }).pipe(
       map((res: any) => {
         const token = res.token;
         if (token) {
@@ -99,6 +102,14 @@ export class AuthenticationService {
         } else {
           return true;
         }
+      })
+    );
+  }
+  uploadFile(image) : Observable<string> {
+    return this.http.post(`${this._url}/upload`, image).pipe(
+      map((item: any) => {
+        console.log(item);
+        return item.fileName;
       })
     );
   }

@@ -1,6 +1,10 @@
 {
     "/API": {
-      "target": "https://helpdesk-backend.herokuapp.com/",
+      "target": "http://localhost:3000",
       "secure": false
-    } 
+    }, 
+    "/image": {
+      "target": "http://localhost:3000",
+      "secure": false
+    }
   }
