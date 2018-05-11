@@ -94,7 +94,7 @@ router.post('/API/questions/', auth, function (req, res, next) {
  })
  router.param('question', function(req, res, next, id) {
    //Make sure only username is selected and not salt + hash
-    let query = Question.findById(id).populate({path: 'answers', populate : {path: 'poster', select: "username avatar"}, select: "body id"}).populate("poster", "_id username");
+    let query = Question.findById(id).populate({path: 'answers', populate : {path: 'poster', select: "username avatar"}, select: "body id posted"}).populate("poster", "_id username");
    
     query.exec(function(err, question) {
       
