@@ -10,12 +10,15 @@ import { AuthGuardService } from './auth-guard.service';
 import { basehttpInterceptorProviders } from '../interceptors';
 import { httpInterceptorProviders } from '../http-interceptors';
 import { UserComponent } from './user.component';
+import { AdminGuardService } from './admin-guard.service';
+import { AdminOverviewComponent } from './admin-overview/admin-overview.component';
+import { AdminDataService } from './admin-data.service';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent },
   { path: 'register', component: RegisterComponent },
- 
+  { path: 'admin', canActivate: [AdminGuardService], component: AdminOverviewComponent }
 ];
 
 @NgModule({
@@ -24,10 +27,12 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     RouterModule.forChild(appRoutes)
   ],
-  declarations: [LoginComponent, RegisterComponent, LogoutComponent, UserComponent],
+  declarations: [LoginComponent, RegisterComponent, LogoutComponent, UserComponent, AdminOverviewComponent],
   providers: [
     AuthenticationService,
     AuthGuardService,
+    AdminGuardService,
+    AdminDataService,
     httpInterceptorProviders
 
   ]

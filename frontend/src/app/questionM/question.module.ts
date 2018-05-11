@@ -15,6 +15,7 @@ import { AddAnswerComponent } from './add-answer/add-answer.component';
 import { httpInterceptorProviders } from '../http-interceptors';
 import { AuthGuardService } from '../userM/auth-guard.service';
 import { basehttpInterceptorProviders } from '../interceptors';
+import { AdminGuardService } from '../userM/admin-guard.service';
 
 const appRoutes: Routes = [
   { path: 'questions', component: QuestionListComponent },

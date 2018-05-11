@@ -34,9 +34,14 @@ export class ChatComponent implements OnInit {
   join() {
     console.log();
     this._chatservice.joinRoom({user: this._authservice.username$.getValue(), room: this.room});
+    this.messageArray = [];
+    this.messageArray.push({user: this._authservice.username$.getValue(), message: " has entered room: " + this.room})
+    
   }
   leave() {
     this._chatservice.leaveRoom({user: this._authservice.username$.getValue(), room: this.room});
+    this.messageArray = [];
+    this.messageArray.push({user: this._authservice.username$.getValue(), message: " has left room: " + this.room})
   }
   sendMessage() {
     this._chatservice.sendMessage({user: this._authservice.username$.getValue(), room:this.room, message: this.messageText});

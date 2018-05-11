@@ -39,7 +39,7 @@ router.post('/API/questions/', auth, function (req, res, next) {
     if(req.body.title.length < 10 || req.body.body.length < 10 || req.body.title.length > 150 || req.body.body.length > 150 ) {
       return next(new Error("Woops"));
     }
-    let question = new Question({poster: req.body.poster, title: req.body.title, body:req.body.body, posted: req.body.datePosted});
+    let question = new Question({poster: req.user._id, title: req.body.title, body:req.body.body, posted: req.body.datePosted});
     question.save(function(err, rec) {
       if (err)
        return next(err);
@@ -48,11 +48,43 @@ router.post('/API/questions/', auth, function (req, res, next) {
   });  
 
  router.delete("/API/question/:question", auth, function(req, res, next){
-  req.question.remove(function(err) {
-    if (err) { return next(err); }   
-    res.json("removed question");
+  if(req.user._id == req.question.poster._id) {
+   
+
+  Answer.remove({ _id: { $in: req.question.answers } }, function(err) {
+    if (err) return next(err);
+    req.question.remove(function(err) {
+      if (err) {
+        return next(err);
+      }
+      res.json(req.question);
+    }); 
   });
- })
+  } else {
+    return res.send(401);
+  }
+});
+
+ router.delete("/API/question/:question/:answer", auth, function(req, res, next){
+   console.log(req.user._id + " " + req.answer.poster._id);
+   
+  if(req.user._id == req.answer.poster._id) {
+     let index = req.question.answers.indexOf(req.answer._id);
+    req.question.answers.splice(index, 1);
+      req.answer.remove((err) => {
+    
+        if(err) return next(err);
+        req.question.save();
+        res.json(req.answer);
+      });
+  } else {
+    return res.send(401);
+  }
+});
+/* req.question.remove(function(err) {
+  if (err) { return next(err); }   
+  res.json("removed question");
+});*/
 
  router.put("/API/question/:question", auth,function(req, res, next){
   req.question.save(function(err) {
@@ -62,7 +94,7 @@ router.post('/API/questions/', auth, function (req, res, next) {
  })
  router.param('question', function(req, res, next, id) {
    //Make sure only username is selected and not salt + hash
-    let query = Question.findById(id).populate({path: 'answers', populate : {path: 'poster', select: "username avatar"}, select: "body id"}).populate("poster", "username");
+    let query = Question.findById(id).populate({path: 'answers', populate : {path: 'poster', select: "username avatar"}, select: "body id"}).populate("poster", "_id username");
    
     query.exec(function(err, question) {
       
@@ -74,12 +106,32 @@ router.post('/API/questions/', auth, function (req, res, next) {
      /* if (!question) {
        
       }*/
-      
+      console.log(question.poster);
       req.question = question;
    
       return next();
     });
   });
+  router.param('answer', function(req, res, next, id) {
+    //Make sure only username is selected and not salt + hash
+     let query = Answer.findById(id).populate({path: "poster", select: "_id"});
+    
+     query.exec(function(err, answer) {
+       
+       if (err) {
+       //  console.log("ja ja");
+     //    return next(err);
+       return next(new Error('not found ' + id));
+       }
+      /* if (!question) {
+        
+       }*/
+       console.log(answer.poster);
+       req.answer = answer;
+    
+       return next();
+     });
+   });
 
   router.get("/image", function(req, res, next) {
     console.log("test");
@@ -90,7 +142,7 @@ router.post('/API/questions/', auth, function (req, res, next) {
     let body = req.body.body;
     body = escapeString(body);
     
-  let answer = new Answer({poster: req.body.poster, body : body, posted : new Date()});
+  let answer = new Answer({poster: req.user._id, body : body, posted : new Date()});
   
   answer.save(function(err, rec) {
     
@@ -100,7 +152,7 @@ router.post('/API/questions/', auth, function (req, res, next) {
     
     req.question.save(function(err, rec) {
       if (err) return next(err);
-      Answer.populate(answer, {path: "poster", select: "username"}, function(err, answer2) {
+      Answer.populate(answer, {path: "poster", select: "username avatar"}, function(err, answer2) {
         answer.poster = answer2.poster;
         console.log(answer2);
         res.json(answer2);

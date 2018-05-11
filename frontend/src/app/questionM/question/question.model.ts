@@ -10,8 +10,7 @@ export class Question {
     private _datePosted : Date;
     private _answers : Answer[];
     
-    constructor(poster : User, body : string, title : string, date:Date) {
-        this._poster = poster;
+    constructor(body : string, title : string, date:Date) {
         this._body = body;
         this._title = title;
         this._datePosted=date;
@@ -19,6 +18,7 @@ export class Question {
         console.log(body);
     }
     get id() : String {
+        console.log("model " + this._id);
         return this._id;
     }
     set id(id : String) {
@@ -27,7 +27,9 @@ export class Question {
     get poster() : User {
         return this._poster;
     }
-
+    set poster(poster : User) {
+        this._poster = poster;
+    }
     get title() : string {
         return this._title;
     }
@@ -47,18 +49,32 @@ export class Question {
     addAnswer(answer : Answer) {
         this._answers.push(answer);
     }
+    removeAnswer(answer : Answer) {
+        console.log("splicing and dicing");
+        let index = -1;
+        let counter = 0;
+        this._answers.forEach((answerA) => {
+            if(answerA.id == answer.id)
+                index =counter;
+            counter++;
+        });
+        console.log("index" + index);
+        if (index > -1) {
+           this._answers.splice(index, 1);
+        }
+    }
     static fromJSON(json: any): Question {
         const question = new Question(
-          new User(json.poster.id, json.poster.username),
           json.body,
           json.title,
           json.date,
 
         );
-    
+     
         question._id = json._id;
+        question.poster = new User(json.poster._id, json.poster.username, json.poster.admin);
         question._answers =   json.answers.map(Answer.fromJSON);
-
+        console.log("id " +question._id);
         return question;
       }
     
@@ -66,7 +82,6 @@ export class Question {
    
         return {
             _id: this._id,
-            poster: this._poster.id,
             body: this._body,
             title: this._title,
             date: this._datePosted,

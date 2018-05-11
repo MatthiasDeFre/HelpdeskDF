@@ -24,7 +24,16 @@ export class AddQuestionComponent implements OnInit {
     })
   }
   onSubmit() {
-    const question = new Question(this.authService.user$.getValue(), this.question.value.body, this.question.value.title, new Date());
+    console.log("submit");
+    let body = this.question.value.body
+    console.log(this.question.value.body);
+    let lines = body.split(/\r\n|\r|\n/g);
+    let step;
+    for (step = 1; step < lines.length; step += 2) {
+      lines.splice(step, 0, "<br />");
+    }
+    body = lines.join('');
+    const question = new Question(body, this.question.value.title, new Date());
     this.questionService.addNewQuestion(question).subscribe(
       (item) => question.id = item.id,
     () => {},

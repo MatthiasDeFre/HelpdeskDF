@@ -12,35 +12,42 @@ import { AuthenticationService } from '../../userM/authentication.service';
   styleUrls: ['./add-answer.component.css']
 })
 export class AddAnswerComponent implements OnInit {
-  
 
-  @Input() public question : Question;
-  public answer : FormGroup
-  public _errorMessage : String;
 
-  constructor(private fb : FormBuilder, private questionService : QuestionService, private router : Router, private authService: AuthenticationService) { }
+  @Input() public question: Question;
+  public answer: FormGroup
+  public _errorMessage: String;
+
+  constructor(private fb: FormBuilder, private questionService: QuestionService, private router: Router, private authService: AuthenticationService) { }
 
   ngOnInit() {
-    this.answer = this.createFormGroup(); 
+    this.answer = this.createFormGroup();
   }
   onSubmit() {
     console.log("submit");
     let body = this.answer.value.body
+    console.log(this.answer.value.body);
+    let lines = body.split(/\r\n|\r|\n/g);
+    let step;
+    for (step = 1; step < lines.length; step += 2) {
+      lines.splice(step, 0, "<br />");
+    }
+    body = lines.join('');
+    console.log(body);
     /*body = body.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); 
     body = body.replace(new RegExp("<script>", 'g'), "<^script^>");
     body = body.replace(new RegExp("</script>", 'g'), "<^/script^>");*/
     const answer = new Answer(body);
-    answer.poster = this.authService.user$.getValue();
     console.log(this.authService.user$.getValue());
     this.questionService.addAnswerToQuestion(this.question.id, answer).subscribe(
-      (item) => {this.question.addAnswer(item)},
+      (item) => { this.question.addAnswer(item) },
       (err) => {
-       this._errorMessage = "Please login";
+        this._errorMessage = "Please login";
       },
-      () =>  {
-       this.answer = this.createFormGroup();
+      () => {
+        this.answer = this.createFormGroup();
       });
-    
+
     /*this.questionService.addNewQuestion(question).subscribe(
       (item) => this.answer.id = item.id,
     () => {},
@@ -55,9 +62,9 @@ export class AddAnswerComponent implements OnInit {
     return this._errorMessage;
   }
 
-  createFormGroup() : FormGroup {
+  createFormGroup(): FormGroup {
     return this.fb.group({
-      body: ["",[Validators.required, Validators.minLength(10)]]
+      body: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(250)]]
     });
   }
 }

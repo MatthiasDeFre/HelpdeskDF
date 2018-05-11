@@ -10,7 +10,11 @@ let UserSchema = new mongoose.Schema({
   },
   hash: String,
   salt: String,
-  avatar: String
+  avatar: String,
+  admin : {
+    type: Boolean,
+    default: false
+  } 
 });
 
 UserSchema.methods.setPassword = function(password) {
@@ -35,6 +39,7 @@ UserSchema.methods.generateJWT = function() {
     {
       _id: this._id,
       username: this.username,
+      admin: this.admin,
       exp: parseInt(exp.getTime() / 1000)
     },
     process.env.BACKEND_SECRET

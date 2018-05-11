@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var path = require("path");
+let fs = require("fs");
 /* GET home page. */
 router.get('/', function(req, res, next) {
  // res.send("server works");
@@ -12,6 +13,14 @@ router.get('/image/:id', function(req, res, next) {
   let id = req.params.id;
   console.log(id);
   res.sendFile(path.resolve("public/images/"+ id));
+ });
+ router.delete('/image/:id', function(req, res, next) {
+  // res.send("server works");
+  console.log("delte");
+  let id = req.params.id;
+  console.log(id);
+  fs.unlinkSync(path.resolve("public/images/"+ id));
+  res.json("deleted");
  });
  /*router.param('image', function(req, res, next, id) {
   //Make sure only username is selected and not salt + hash

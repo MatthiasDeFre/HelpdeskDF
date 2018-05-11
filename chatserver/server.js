@@ -4,7 +4,7 @@ const express = require('express');
 const socketIO = require('socket.io');
 const path = require('path');
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 let cors = require('cors');
 let origin = process.env.HELPDESK_FRONTEND || "*";
 

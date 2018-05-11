@@ -33,7 +33,7 @@ export class AuthenticationService {
       }
     }
     this._user$ = new BehaviorSubject<User>(
-      parsedToken && new User(parsedToken._id, parsedToken.username)
+      parsedToken && new User(parsedToken._id, parsedToken.username, parsedToken.admin)
     );
     this._username$ = new BehaviorSubject<String>(
       parsedToken && parsedToken.username
@@ -59,7 +59,7 @@ export class AuthenticationService {
           console.log("result " + res.id);
           console.log("token" + res.token);
           localStorage.setItem(this._tokenKey, token);
-          this._user$.next(new User(res.id, username));
+          this._user$.next(new User(res.id, username, res.admin));
           this._username$.next(username);
           return true;
         } else {
@@ -85,7 +85,8 @@ export class AuthenticationService {
         const token = res.token;
         if (token) {
           localStorage.setItem(this._tokenKey, token);
-          this._user$.next(new User(res.id, username));
+          this._user$.next(new User(res.id, username, res.admin));
+          this._username$.next(username);
           return true;
         } else {
           return false;

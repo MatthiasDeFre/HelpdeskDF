@@ -46,7 +46,11 @@ export class QuestionService {
         .delete(`${this._appUrl}/question/${question.id}`)
         .pipe(map(Question.fromJSON));
     }
-    
+    deleteAnswer(question, answer) {
+      return this.http
+      .delete(`${this._appUrl}/question/${question.id}/${answer.id}`)
+      .pipe(map(Answer.fromJSON));
+    }
   getQuestion(id: string) {
     const theUrl = `${this._appUrl}/question/${id}`;
     return this.http.get(theUrl).pipe(map(Question.fromJSON));

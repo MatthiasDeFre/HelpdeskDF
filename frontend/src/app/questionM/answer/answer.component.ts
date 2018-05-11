@@ -1,6 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Answer } from './answer.model';
 import { BACKEND_URL } from '../../../environments/environment';
+import { Router } from '@angular/router';
+import { QuestionService } from '../question.service';
+import { AuthenticationService } from '../../userM/authentication.service';
+import { Question } from '../question/question.model';
 
 
 @Component({
@@ -12,8 +16,9 @@ export class AnswerComponent implements OnInit {
 
   @Output() public quoteText = new EventEmitter<String>();
   @Input() public answer : Answer;
+  @Input() public question : Question;
   
-  constructor() { }
+  constructor(private _questionService : QuestionService, private router : Router,  private authService: AuthenticationService) { }
 
   ngOnInit() {
   }
@@ -32,12 +37,22 @@ export class AnswerComponent implements OnInit {
     return this.answer.poster.name;
   }
  get avatarUrl() : String {
-   console.log(this.answer.poster);
+   
    let back = BACKEND_URL == null ? "" : BACKEND_URL;
    return "image"+back + "/" +this.answer.poster.avatar;
  }
   quote() : boolean {
     this.quoteText.emit(this.answer.body);
     return true;
+  }
+
+  get posterIsLoggedIn() : boolean{
+   
+    return this.authService.user$.getValue() != null && this.authService.user$.getValue().id == this.answer.poster.id;
+  }
+  deleteAnswer() {
+    this._questionService.deleteAnswer(this.question, this.answer).subscribe((item)=>{
+      this.question.removeAnswer(item);
+    });
   }
 }

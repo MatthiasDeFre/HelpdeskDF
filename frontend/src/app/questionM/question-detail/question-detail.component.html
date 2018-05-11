@@ -6,9 +6,13 @@
 <div class="questionbody">
   <div class="ui form">
   <div class="field">
-  <textarea disabled>{{question.body}}</textarea>
+    <div class="ui segment allPadded" [innerHTML]="question.body"></div>
+  
 </div>
 </div>
+</div>
+<div *ngIf="posterIsLoggedIn" >
+<button class="ui button paddedbutton" (click)="deleteQuestion()">Delete Question</button>
 </div>
 </div>  
 <h4 class="ui horizontal divider header">
@@ -18,11 +22,17 @@
 <div class="addanwser">
   <app-add-answer [question]='question'></app-add-answer>
 </div>
-<div *ngIf="question.answers" class="anwsers ui comments">
-  <h4 class="ui horizontal divider header">
+<h4 *ngIf="question.answers.length > 0 else first" class="ui horizontal divider header">
     <i class="keyboard outline icon"></i>
     All Answers
   </h4>
-  <app-answer class="answer" *ngFor="let answer of question.answers" [answer]='answer'></app-answer>
+<div *ngIf="question.answers.length > 0" class="anwsers ui comments">
+  <app-answer class="answer" *ngFor="let answer of question.answers" [answer]='answer' [question]='question'></app-answer>
 </div>
+<ng-template #first>
+    <h4  class="ui horizontal divider header">
+        <i class="keyboard outline icon"></i>
+        Nothing to see here, be the first! :o
+      </h4>
+  </ng-template>
 </div>

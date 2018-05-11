@@ -13,6 +13,15 @@
    
     
     <input type="text" id="title" formControlName="title" placeholder="What is your question?">
+    <div class='ui pointing red basic label' *ngIf=' question.get("title").errors?.required && question.get("title").touched'>
+                A Title is required
+              </div>
+              <div class='ui pointing red basic label' *ngIf='question.get("title").errors?.minlength && question.get("title").touched'>
+                The title of the question should be at least {{question.get("title").errors?.minlength.requiredLength }} letters
+              </div>
+              <div class='ui pointing red basic label' *ngIf='question.get("title").errors?.maxlength && question.get("title").touched'>
+                        The title of the question should be max {{question.get("title").errors?.maxlength.requiredLength }} letters
+                      </div>
         </div>
         <div class="field toppedoff">
                 <h3 class="ui horizontal divider header">
@@ -22,6 +31,15 @@
    
     
     <textarea rows="5" id="body" formControlName="body" placeholder="Explain your question in detail here:"></textarea>
+    <div class='ui pointing red basic label' *ngIf=' question.get("body").errors?.required && question.get("body").touched'>
+                A Body is required
+              </div>
+              <div class='ui pointing red basic label' *ngIf='question.get("body").errors?.minlength && question.get("body").touched'>
+                The body of the question should be at least {{question.get("body").errors?.minlength.requiredLength }} letters
+              </div>
+              <div class='ui pointing red basic label' *ngIf='question.get("body").errors?.maxlength && question.get("body").touched'>
+                        The body of the question should be max {{question.get("body").errors?.maxlength.requiredLength }} letters
+                      </div>
         </div>
 </div>
 <button [disabled]='!question.valid' class="ui button paddedbutton" type="submit">Pose question</button>

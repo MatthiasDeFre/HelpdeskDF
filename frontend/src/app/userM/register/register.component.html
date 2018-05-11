@@ -32,7 +32,7 @@
   </div>
   <div class="field">
     <label for="file">File:</label>
-    <input type="file" accept="image/*" id="file" formControlName='file' (change)="onFileSelected($event)">
+    <input class="ui teal button" type="file" accept="image/*" id="file" formControlName='file' (change)="onFileSelected($event)">
     <div class='ui pointing red basic label' *ngIf=' passwordControl.errors?.passwordTooShort && passwordControl.touched'>
       Upload a file please ffs
     </div>

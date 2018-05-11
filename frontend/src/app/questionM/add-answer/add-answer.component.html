@@ -4,8 +4,18 @@
   <div class="field">
     <label for="body">Body: </label>
     <textarea rows="3" id="body" formControlName="body"></textarea>
-  </div>
+    <div class='ui pointing red basic label' *ngIf=' answer.get("body").errors?.required && answer.get("body").touched'>
+        A body is required
+      </div>
+      <div class='ui pointing red basic label' *ngIf='answer.get("body").errors?.minlength && answer.get("body").touched'>
+        The body of the answer should be at least {{question.get("title").errors?.minlength.requiredLength }} letters
+      </div>
+      <div class='ui pointing red basic label' *ngIf='answer.get("body").errors?.maxlength && answer.get("body").touched'>
+                The body of the answer should be max {{answer.get("body").errors?.maxlength.requiredLength }} letters
+              </div>
 </div>
+  </div>
+
 <p>{{errorMessage}}</p>
-<button class="ui button paddedbutton" type="submit">Submit answer</button>
+<button [disabled]='!answer.valid' class="ui button paddedbutton" type="submit">Submit answer</button>
 </form>

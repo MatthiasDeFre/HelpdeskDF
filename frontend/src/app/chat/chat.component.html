@@ -1,5 +1,4 @@
-<div>
-    
+<div class="allpadded">
   <div class="ui form">
     <h2>DevChat</h2>
     <hr>
@@ -8,13 +7,15 @@
         <label for="roomInput">Choose room</label>
         <select name="roomInput" id="roomInput" [(ngModel)]="room">
           <option value="Lobby">Lobby</option>
-          <option value="Hall">Hall</option>
-          <option value="Deluxe">Deluxe</option>
+          <option value="The Coffee Place">The Coffee Place</option>
+          <option value="The One Letter Room">The One Letter Room</option>
+          <option value="CSS Is not a language">CSS Is not a language</option>
+          <option value="Basement">Basement</option>
         </select>
       </div>
     </div>
     <div class="ui">
-      <div style="margin-top:19px;" class="pull-right">
+      <div style="margin-top:19px;">
         <button type="button" class="ui button paddedbutton" (click)="join()">Join</button>
         <button type="button" class="ui button paddedbutton" (click)="leave()">Leave</button>
       </div>
