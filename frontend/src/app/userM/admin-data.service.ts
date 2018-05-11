@@ -24,4 +24,9 @@ export class AdminDataService {
       return this.http
       .put(`${this._appUrl}/users/admin/${userId}`, {adminA: admin});
     }
+    deleteUser(userId:  string) {
+      console.log("delete" + userId);
+      return this.http
+      .delete(`${this._appUrl}/users/admin/delete/${userId}`);
+    }
 }

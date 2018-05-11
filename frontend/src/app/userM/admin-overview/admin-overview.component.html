@@ -1,7 +1,7 @@
 <div *ngFor="let item of users">
   <div *ngIf="currentUserId != item.id">
   Name: {{item.name}} is {{item.admin}}
-  <a (click)="deleteUser()">Delete user</a>
+  <a (click)="deleteUser(item.id)">Delete user</a>
   <a *ngIf="!item.isAdmin else revoke" (click)="makeAdmin(item.id, true)">Make admin</a>
   <ng-template #revoke>
       <a (click)="makeAdmin(item.id, false)">Remove admin</a>

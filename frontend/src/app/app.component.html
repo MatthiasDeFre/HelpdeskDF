@@ -10,6 +10,8 @@
     routerLink="/addquestion" >Pose a new question</a>
     <a class='item' routerLinkActive='active' 
     routerLink="/chat" >DevChat</a>
+    <a *ngIf="currentUserAdmin" class='item' routerLinkActive='active' 
+    routerLink="/admin" >Admin</a>
     <div class="right menu">
     <a *ngIf='(currentUser | async) else loginlink' class="item" routerLinkActive='active' routerLink="/logout">Logout: {{currentUser |async}}</a>
     <ng-template #loginlink>
@@ -49,6 +51,11 @@
    <a class='item' routerLinkActive='active' 
     routerLink="/chat" >DevChat</a>
   </div>
+  <div *ngIf="currentUserAdmin">
+    <i class="fa fa-unlock-alt fonticon" aria-hidden="true"></i>
+  <a  class='item' routerLinkActive='active' 
+  routerLink="/admin" >Admin</a>
+</div>
 </div>
 
 <div class="ui container extra">

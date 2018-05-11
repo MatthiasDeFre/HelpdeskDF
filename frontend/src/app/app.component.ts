@@ -17,4 +17,8 @@ export class AppComponent {
    //blabla
     return this.authService.username$;
   }
+  get currentUserAdmin() : boolean {
+    console.log(this.authService.user$.getValue().isAdmin);
+    return this.authService.user$.getValue().isAdmin;
+  }
 }

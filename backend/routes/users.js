@@ -2,7 +2,13 @@ let express = require('express');
 let router = express.Router();
 let mongoose = require('mongoose');
 let User = mongoose.model('User');
+let Question = mongoose.model('Question');
+let Answer = mongoose.model("Answer");
+
 let passport = require('passport');
+let jwt = require('express-jwt');
+let auth = jwt({secret: process.env.BACKEND_SECRET});
+
 var multer  = require('multer');
 var storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, 'public/images'),
@@ -42,11 +48,15 @@ router.get('/all', function(req, res, next) {
      res.json(questions);
   })*/
 });
- router.put("/admin/:userA", function(req, res, next){
- 
-    req.userA.admin = req.body.adminA;
-    req.userA.save();
-    res.json("jobsdone");
+ router.put("/admin/:userA", auth, function(req, res, next){
+ if(req.user.admin){
+  req.userA.admin = req.body.adminA;
+  req.userA.save();
+  res.json("jobsdone");
+ } else {
+   return res.send(401);
+ }
+  
 });
 router.post('/register', function(req, res, next) {
   if (!req.body.username || !req.body.password || !req.body.avatar) {
@@ -105,6 +115,55 @@ router.post('/upload', upload.single("image"), function(req, res, next) {
   console.log(req.file);
   return res.json({fileName: req.file.filename});
 });
+
+//Find questions
+//Delete answers for questions
+//Delete answers
+//Delete user
+router.delete("/admin/delete/:userId", auth, function(req, res, next){
+  if(req.user.admin){
+
+   let questionsA; 
+   let query = Question.find({poster: req.params.userId});
+   let query2 = Answer.find({poster: req.params.userId});
+   query.exec(function(err, questions){
+     
+     questions.forEach((item)=> {
+     
+      Answer.remove({ _id: { $in: item.answers } }, function(err) {
+        if (err) return next(err);
+        item.remove();
+      });
+     });
+     query2.exec(function(err, answers){
+      answers.forEach((item)=> {
+        console.log("a");
+        console.log(item._id);
+         let query3 = Question.findOne({ answers: item._id });
+         query3.exec(function(err, question){
+           console.log("q");
+           console.log(question);
+           let index = question.answers.indexOf(item._id);
+           console.log(index);
+           question.answers.splice(index, 1);
+             item.remove((err) => {
+               if(err) return next(err);
+               question.save();
+               
+             });
+         });
+      });
+   });
+   });
+  User.remove({_id: req.params.userId}, function(err) {
+    if (err) return next(err);
+  })
+  res.json("job done");
+  } else {
+    return res.send(401);
+  }
+});
+
 
 router.param('userA', function(req, res, next, id) {
   //Make sure only username is selected and not salt + hash

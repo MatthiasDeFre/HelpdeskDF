@@ -42,8 +42,22 @@ export class AdminOverviewComponent implements OnInit {
       this._users[index].admin = admin;
     });
   }
-  deleteUser() {
+  deleteUser(userId : string) {
     console.log("exterminate");
+    this._adminService.deleteUser(userId).subscribe(() => {
+      console.log("splicing and dicing");
+      let index = -1;
+      let counter = 0;
+      this._users.forEach((userA) => {
+          if(userA.id == userId)
+              index =counter;
+          counter++;
+      });
+      console.log("index" + index);
+      if (index > -1) {
+         this._users.splice(index, 1);
+      }
+    });
   }
 
 }
