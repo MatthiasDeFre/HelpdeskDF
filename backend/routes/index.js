@@ -4,9 +4,9 @@ var path = require("path");
 let fs = require("fs");
 var cloudinary = require('cloudinary');
 cloudinary.config({ 
-  cloud_name: 'helpdeskdefre', 
-  api_key: '493212626752428', 
-  api_secret: 'nZraPJhpXOAYJfAdM7LyF-IetxI' 
+  cloud_name: process.env.CLOUDNAME, 
+  api_key: process.env.CLOUDKEY, 
+  api_secret: process.env.CLOUDSECRET
 });
 /* GET home page. */
 router.get('/', function(req, res, next) {

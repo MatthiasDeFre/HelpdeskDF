@@ -27,11 +27,11 @@ var upload = multer({
 
 router.get('/all', function(req, res, next) {
   
-  let query = User.find();
+  let query = User.find({}, "username");
   query.exec(function(err, users){
     if (err) 
         return next(err);
-      
+      console.log(users);
      res.json(users);
   })
 
