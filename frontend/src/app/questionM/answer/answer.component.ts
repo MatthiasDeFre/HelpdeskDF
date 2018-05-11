@@ -37,15 +37,13 @@ export class AnswerComponent implements OnInit {
     return this.answer.poster.name;
   }
  get avatarUrl() : String {
-   
-   let back = BACKEND_URL == null ? "" : BACKEND_URL;
-   return "image"+back + "/" +this.answer.poster.avatar;
+   return "http://res.cloudinary.com/helpdeskdefre/image/upload/" +this.answer.poster.avatar;
  }
   quote() : boolean {
     this.quoteText.emit(this.answer.body);
     return true;
   }
-
+  
   get posterIsLoggedIn() : boolean{
    
     return this.authService.user$.getValue() != null && this.authService.user$.getValue().id == this.answer.poster.id;

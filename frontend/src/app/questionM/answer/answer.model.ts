@@ -1,4 +1,5 @@
 import { User } from "../../userM/user.model";
+import { QuestionService } from "../question.service";
 
 export class Answer {
     
@@ -26,7 +27,7 @@ export class Answer {
     get datePosted() : Date {
         return this._datePosted;
     }
-
+   
     static fromJSON(json: any): Answer {
        
         const answer = new Answer(

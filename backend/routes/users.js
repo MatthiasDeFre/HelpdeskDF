@@ -9,23 +9,16 @@ let passport = require('passport');
 let jwt = require('express-jwt');
 let auth = jwt({secret: process.env.BACKEND_SECRET});
 
+var cloudinary = require('cloudinary');
+var cloudinaryStorage = require('multer-storage-cloudinary');
+cloudinary.config({ 
+  cloud_name: 'helpdeskdefre', 
+  api_key: '493212626752428', 
+  api_secret: 'nZraPJhpXOAYJfAdM7LyF-IetxI' 
+});
 var multer  = require('multer');
-var storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, 'public/images'),
-  filename: (req, file, cb) => {
-    console.log("changen names");
-    console.log("name" + file.originalname);
-    if(!file.originalname.match(/\.(jpeg|png|jpg|wav)$/)) {
-      console.log("error");
-      var err = new Error();
-      err.code = 'filetype';
-      return cb(err);
-    } else  {
-      console.log("done") 
-      cb(null, + Date.now() + "_" + file.originalname);
-    }
-
-  } 
+var storage = cloudinaryStorage({
+  cloudinary: cloudinary
 });
 var upload = multer({ 
   storage: storage,
@@ -59,6 +52,7 @@ router.get('/all', function(req, res, next) {
   
 });
 router.post('/register', function(req, res, next) {
+  console.log(req.body);
   if (!req.body.username || !req.body.password || !req.body.avatar) {
     return res.status(400).json({ message: 'Please fill out all fields' });
   }
@@ -111,9 +105,8 @@ router.post('/checkusername', function(req, res, next) {
 });
 
 router.post('/upload', upload.single("image"), function(req, res, next) {
-  console.log("upload");
   console.log(req.file);
-  return res.json({fileName: req.file.filename});
+  return res.json({fileName: req.file.public_id});
 });
 
 //Find questions

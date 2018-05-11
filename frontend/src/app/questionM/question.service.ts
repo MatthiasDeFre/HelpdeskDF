@@ -55,6 +55,13 @@ export class QuestionService {
     const theUrl = `${this._appUrl}/question/${id}`;
     return this.http.get(theUrl).pipe(map(Question.fromJSON));
   }
+
+  getImageUrl(avatar : string) {
+    const theUrl = `image/${avatar}`;
+    return this.http.get(theUrl).pipe(map(resp => {
+      console.log(resp);
+    }));
+  }
  /* constructor() { 
     let user = new User("iemand");
     this._questions.push(new Question(user, "Vraag 1", "nog iets"));

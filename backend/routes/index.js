@@ -2,6 +2,12 @@ var express = require('express');
 var router = express.Router();
 var path = require("path");
 let fs = require("fs");
+var cloudinary = require('cloudinary');
+cloudinary.config({ 
+  cloud_name: 'helpdeskdefre', 
+  api_key: '493212626752428', 
+  api_secret: 'nZraPJhpXOAYJfAdM7LyF-IetxI' 
+});
 /* GET home page. */
 router.get('/', function(req, res, next) {
  // res.send("server works");
@@ -11,8 +17,11 @@ router.get('/', function(req, res, next) {
 router.get('/image/:id', function(req, res, next) {
   // res.send("server works");
   let id = req.params.id;
+ /* console.log(id);
+  res.sendFile(path.resolve("public/images/"+ id));*/
   console.log(id);
-  res.sendFile(path.resolve("public/images/"+ id));
+  console.log(cloudinary.url(id));
+ return res.json({url: cloudinary.url(id)});
  });
  router.delete('/image/:id', function(req, res, next) {
   // res.send("server works");
